@@ -33,6 +33,10 @@ body {
   border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
 }
 
+.pie{
+  color: red;
+}
+
 .izquierda {
 width: 35%;
 }
@@ -62,8 +66,23 @@ width: 100%;
 
 }
 
+.textoprincipal{
+  font-family: monospace;
+  font-size: 20px;
+  color: white;
+  text-decoration: underline;
+}
+
+.cursiva{
+    font-style: italic;
+}
+
 .textoderecha{
   text-align: right;
+}
+
+.textonormal{
+  font-style: verdana;
 }
 
 .textoizquierda{
