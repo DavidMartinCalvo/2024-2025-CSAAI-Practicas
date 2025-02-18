@@ -115,7 +115,7 @@ img {
 .iresponsive {
     padding: 0 6px;
     float: left;
-    width: 100%;
+    width: 50%;
   }
 
 /* Responsive layout - cuando el ancho de pantalla es menor a 600px, muestra las columnas apiladas. */
