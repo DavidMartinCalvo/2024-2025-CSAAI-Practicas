@@ -5,11 +5,32 @@
     box-sizing: border-box;
   }
   
+.titulo {
+  font-family: monospace;
+  margin: 0;
+  text-shadow: 0 0 5px red, 0 0 15px red, 0 0 30px red;
+  text-align: center;
+  color: white;
+  -webkit-text-stroke: 1px rgb(100, 96, 96);
+}
+
+body {
+  background-image: url('citylarge.gif');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 /* Crear columnas de ancho diferente que se colocan una a continuación de la otra */
 .columna {
-float: left;
-padding: 10px;
-min-height: 500px;
+  float: left;
+  padding: 10px;
+  min-height: 50px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  border: 5px solid;
+  border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
 }
 
 .izquierda {
@@ -20,6 +41,35 @@ width: 35%;
 width: 65%;
 }
 
+.derechayuda {
+width: 50%;  
+background-color: gray;
+color: yellow;
+}
+
+.izquierdayuda {
+width: 50%;
+background-color: gray;
+color: yellow;
+}
+
+.fila{
+float: initial;
+padding: 10px;
+min-height: 160px;
+border-radius: 10px;
+width: 100%;
+
+}
+
+.textoderecha{
+  text-align: right;
+}
+
+.textoizquierda{
+  text-align: right;
+}
+
 /* Clear floats despues de las columnas para eliminar la superposición */
 .filla:after {
 content: "";
@@ -28,11 +78,11 @@ clear: both;
 }
 
 #c1 {
-    background-color:#cfe413;
+    background-color:#EB4EF5;
 }
 
 #c2 {
-    background-color:#d89115;
+    background-color:#B54EF5;
 }
 
 /* estilos para imágenes https://www.w3schools.com/css/css3_images.asp */
