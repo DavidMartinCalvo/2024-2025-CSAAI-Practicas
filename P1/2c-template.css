@@ -27,7 +27,7 @@ body {
   padding: 10px;
   min-height: 50px;
   border-radius: 10px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   border: 5px solid;
   border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
@@ -53,7 +53,7 @@ color: yellow;
 
 .izquierdayuda {
 width: 50%;
-background-color: gray;
+background-color: rgba(128, 128, 128, 0.5);;
 color: yellow;
 }
 
@@ -87,13 +87,15 @@ width: 100%;
 
 .textoizquierda{
   text-align: right;
+  
 }
 
 
 .fecha{
   color: white;
   border: 5px solid;
-  background-color: black;
+  background-color: rgba(128, 128, 128, 0.5);;
+  
 }
 
 
