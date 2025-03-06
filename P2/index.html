@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bombita Boom Boom</title>
+    
+    <link rel="stylesheet" href="bomba.css">    
+    <link rel="icon" href="icono.ico" type="image/x-icon">
+    <link rel="stylesheet" href="bomba.css">    
+    <script src="bomba.js" defer></script>
+    <link rel="icon" href="mariobomba.ico" type="image/x-icon">
+
+    <audio autoplay loop>
+        <source src="Maktar.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+</head>
+<body>
+   
+    <p></p>
+    <h1 class="titulo">PC Explosivo</h1>
+    <p></p>
+        <div class="cajamain">
+            <div class="cajacontador">
+                <div class="cajanumero iresponsive">
+                    <p id="contrasena1">7</p>
+                </div>
+                <div class="cajanumero iresponsive"> 
+                    <p id="contrasena2">8</p>
+                </div>
+                <div class="cajanumero iresponsive" >  
+                    <p id="contrasena3">0</p>
+                </div>
+                <div class="cajanumero iresponsive"> 
+                    <p id="contrasena4">2</p>
+                </div>
+                <p></p>
+                <h1 class="cronometro" style="padding-top: 30px;">00:00:00</h1>
+
+                <p>
+                    Intentos restantes: <span id="intentos">10</span>
+                </p>
+                
+            </div>
+            <div class="cajacontador">
+                <div class="cajainvisible">
+                    <button class="cajatecla iresponsive" id="tecla1">
+                        <p>1</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="tecla2">
+                        <p>2</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="tecla3">
+                        <p>3</p>
+                    </button>
+                </div>
+                <div class="cajainvisible">
+                    <button class="cajatecla iresponsive" id="tecla4">
+                        <p>4</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="tecla5">
+                        <p>5</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="tecla6">
+                        <p>6</p>
+                    </button>
+                </div>
+                <div class="cajainvisible">
+                    <button class="cajatecla iresponsive" id="tecla7">
+                        <p>7</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="tecla8">
+                        <p>8</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="tecla9">
+                        <p>9</p>
+                    </button>
+                </div>
+                <div class="cajainvisible">
+                    <button class="cajatecla iresponsive">
+                        <p>-</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="tecla0">
+                        <p>0</p>
+                    </button>
+                    <button class="cajatecla iresponsive">
+                        <p>-</p>
+                    </button>
+                </div>
+                <div class="cajainvisible">
+                    <button class="cajatecla iresponsive" id="teclaStart" style="font-size:xx-small;">
+                        <p>Start</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="teclaStop" style="font-size:xx-small;">
+                        <p>Stop</p>
+                    </button>
+                    <button class="cajatecla iresponsive" id="teclaReset" style="font-size:xx-small;">
+                        <p>Reset</p>
+                    </button>
+                </div>
+                <p style="color: rgba(0, 0, 0, 0.5);">.</p>
+            </div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+* {
+    box-sizing: border-box;
+  }
+  
+.titulo {
+  font-family: monospace;
+  margin: 0;
+  text-shadow: 0 0 5px red, 0 0 15px red, 0 0 30px red;
+  text-align: center;
+  color: white;
+  -webkit-text-stroke: 1px rgb(100, 96, 96);
+}
+
+body {
+  background-image: url('fireworks.gif');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Crear columnas de ancho diferente que se colocan una a continuación de la otra */
+.cajamain {
+  float: center;
+  padding: 10px;
+  min-height: 50px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: 5px solid;
+  border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
+  width: 100%;
+}
+
+.cajacontador {
+    float: center;
+    padding: 5px;
+    min-height: 50px;
+    border-radius: 10px;
+    width: 100%;
+    color: white;
+    border: 5px solid;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.cajanumero {
+    padding: 5px;
+    min-height: 50px;
+    border-radius: 10px;
+    width: 100%;
+    color: gray;
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+p {
+    color: yellow;
+    font-weight: bold;
+    font-size: larger;
+    text-align: center;
+}
+
+.cajainvisible{
+  float: center;
+}
+
+.cajatecla{
+    padding: 5px;
+    min-height: 35px;
+    min-width: 38px;
+    border-radius: 10px;
+    width: 100%;
+    color: gray;
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+
+
+.cronometro{
+    text-align: center;
+    float: center;
+}
+
+.pie{
+  color: red;
+}
+
+
+.derechayuda {
+width: 50%;  
+background-color: gray;
+color: yellow;
+}
+
+.izquierdayuda {
+width: 50%;
+background-color: rgba(128, 128, 128, 0.5);;
+color: yellow;
+}
+
+.fila{
+float: initial;
+padding: 10px;
+min-height: 160px;
+border-radius: 10px;
+width: 100%;
+
+}
+
+.textoprincipal{
+  font-family: monospace;
+  font-size: 20px;
+  color: white;
+  text-decoration: underline;
+}
+
+.cursiva{
+    font-style: italic;
+}
+
+.textoderecha{
+  text-align: right;
+}
+
+.textonormal{
+  font-style: verdana;
+}
+
+.textoizquierda{
+  text-align: right;
+  
+}
+
+
+.fecha{
+  color: white;
+  border: 5px solid;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+}
+
+
+
+
+
+
+
+
+
+/* Clear floats despues de las columnas para eliminar la superposición */
+.filla:after {
+content: "";
+display: table;
+clear: both;
+}
+
+#c1 {
+    background-color:#EB4EF5;
+}
+
+#c2 {
+    background-color:#B54EF5;
+}
+
+/* estilos para imágenes https://www.w3schools.com/css/css3_images.asp */
+/* posicionamiento de imágenes https://www.w3schools.com/css/css_positioning.asp */
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.iresponsive {
+    padding: 0 6px;
+    float: left;
+    width: 25%;
+  }
+
+/* Responsive layout - cuando el ancho de pantalla es menor a 600px, muestra las columnas apiladas. */
+/* Así conseguimos que el contenido se vea bien en dispositvos móviles */
+
+@media screen and (max-width: 600px) {
+    .columna {
+      width: 100%;
+    }
+
+    
+}
+
+/* Más sobre diseño web responsive https://www.w3schools.com/css/css_rwd_intro.asp */
