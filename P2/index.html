@@ -10,6 +10,7 @@
     <link rel="icon" href="icono.ico" type="image/x-icon">
     <link rel="stylesheet" href="bomba.css">    
     <script src="bomba.js" defer></script>
+    <script src="crono.js"></script>
     <link rel="icon" href="mariobomba.ico" type="image/x-icon">
 
 </head>
@@ -33,7 +34,7 @@
                     <p id="contrasena4">2</p>
                 </div>
                 <p></p>
-                <h1 class="cronometro" style="padding-top: 30px;">00:00:00</h1>
+                <h1 class="cronometro" style="padding-top: 30px;" id="display">0:0:0</h1>
 
                 <p>
                     Intentos restantes: <span id="intentos">10</span>
@@ -86,13 +87,13 @@
                     </button>
                 </div>
                 <div class="cajainvisible">
-                    <button class="cajatecla iresponsive" id="teclaStart" style="font-size:xx-small;">
+                    <button class="cajatecla iresponsive" id="start" style="font-size:xx-small;">
                         <p>Start</p>
                     </button>
-                    <button class="cajatecla iresponsive" id="teclaStop" style="font-size:xx-small;">
+                    <button class="cajatecla iresponsive" id="stop" style="font-size:xx-small;">
                         <p>Stop</p>
                     </button>
-                    <button class="cajatecla iresponsive" id="teclaReset" style="font-size:xx-small;">
+                    <button class="cajatecla iresponsive" id="reset" style="font-size:xx-small;">
                         <p>Reset</p>
                     </button>
                 </div>
