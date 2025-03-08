@@ -72,6 +72,7 @@ function start() {
 
 function reset() {
     intentos = 10;
+    contradiccion = false;
     document.getElementById("intentos").innerText = intentos;
     contrasena1.style.display = "none";
     contrasena2.style.display = "none";
@@ -157,7 +158,7 @@ contrasena2.style.display = "none";
 contrasena3.style.display = "none";
 contrasena4.style.display = "none";
 
-
+let contradiccion = false;
 
 const tecla1 = document.getElementById("tecla1");
 const tecla2 = document.getElementById("tecla2");
@@ -172,6 +173,7 @@ const tecla0 = document.getElementById("tecla0");
 
 
 let aciertos = 0;
+
 
 
 const teclas = [tecla0, tecla1, tecla2, tecla3, tecla4, tecla5, tecla6, tecla7, tecla8, tecla9];
@@ -203,6 +205,7 @@ teclas.forEach((tecla, index) => {
                             
                             if (aciertos == 4) {
                                 ganar();
+                                contradiccion = true;
                             }
                         }
                         hasacertado[index] = true;
@@ -211,7 +214,7 @@ teclas.forEach((tecla, index) => {
                 intentos = intentos - 1;
                 console.log(`Intentos restantes:  ${intentos}`);
                 document.getElementById("intentos").innerText = intentos;
-                if (intentos == 0) {
+                if (intentos == 0 && contradiccion == false) {
                     explosion();
                 }
         }
