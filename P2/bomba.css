@@ -30,6 +30,7 @@ body {
   border: 5px solid;
   border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
   width: 100%;
+  
 }
 
 .cajacontador {
@@ -62,6 +63,7 @@ p {
 
 .cajainvisible{
   float: center;
+  
 }
 
 .cajatecla{
