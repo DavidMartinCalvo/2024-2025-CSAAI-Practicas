@@ -184,6 +184,7 @@ teclas.forEach((tecla, teclaDigit) => {
                 Sonido(victoriaAudio);
                 document.body.style.backgroundImage = "url('victoria.gif')";
                 puedesJugar = false;
+                stopSong(mlgAudio);
                 ganar();
                 
             } else if (intentos === 0 && contradiccion === false) {
