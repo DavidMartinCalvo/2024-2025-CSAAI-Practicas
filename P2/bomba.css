@@ -13,6 +13,7 @@
 
 body {
   background-image: url('fireworks.gif');
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -24,7 +25,7 @@ body {
   padding: 10px;
   min-height: 50px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.3);
   color: white;
   border: 5px solid;
   border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
@@ -39,7 +40,7 @@ body {
     width: 100%;
     color: white;
     border: 5px solid;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .cajanumero {
@@ -56,6 +57,7 @@ p {
     font-weight: bold;
     font-size: larger;
     text-align: center;
+    font-family: digital;
 }
 
 .cajainvisible{
@@ -69,7 +71,7 @@ p {
     border-radius: 10px;
     width: 100%;
     color: gray;
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.2);
 }
 
 
