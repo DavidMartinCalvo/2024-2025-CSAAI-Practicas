@@ -19,7 +19,7 @@ body {
   background-size: cover;
 }
 
-/* Crear columnas de ancho diferente que se colocan una a continuación de la otra */
+
 .cajamain {
   float: center;
   padding: 10px;
@@ -41,16 +41,17 @@ body {
     width: 100%;
     color: white;
     border: 5px solid;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
+    min-height: 200px;
 }
 
 .cajanumero {
     padding: 5px;
     min-height: 50px;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 100%;
     color: gray;
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.3);
 }
 
 p {
@@ -72,8 +73,8 @@ p {
     min-width: 38px;
     border-radius: 10px;
     width: 100%;
-    color: gray;
-    background-color: rgba(255, 0, 0, 0.2);
+    color: whitesmoke;
+    background-color: rgba(128, 128, 128, 0.1);
 }
 
 
