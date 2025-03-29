@@ -1,100 +1,137 @@
-// Access the canvas element and its context
-const canvas = document.getElementById("ctiro");
-const ctx = canvas.getContext("2d");
+const mapa = document.getElementById("mapa");
 
-// Access the buttons
-const btnLanzar = document.getElementById("btnLanzar");
-const btnIniciar = document.getElementById("btnIniciar");
+mapa.width = "800";
+mapa.height = "400";
 
-// Initial projectile coordinates
-let xop = 5;
-let yop = 345;
-let xp = xop;
-let yp = yop;
+jugar = true;
+const contexto = mapa.getContext("2d");
 
-// Initial target coordinates
-let xomin = 200;
-let xomax = 770;
-let xo = 500;
-let yo = 370;
+var iluminati = document.getElementById("iluminati");
 
-// Projectile velocity
-let velX = 5; // Horizontal velocity
-let velY = 0; // Vertical velocity
+iluminati.onload = () => {
+    contexto.drawImage(iluminati, 5, 343);
+};
 
-// Draw the projectile
-function dibujarP(x, y, lx, ly, color) {
-    ctx.beginPath();
-    ctx.rect(x, y, lx, ly);
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.stroke();
-    ctx.closePath();
-}
+// Objeto prota y sus parámetros
+const prota = {
+    x: 5,
+    y: 343,
+    velocidad: 5, // Velocidad del movimiento
+};
 
-// Draw the target
-function dibujarO(x, y) {
-    ctx.beginPath();
-    ctx.arc(x, y, 25, 0, 2 * Math.PI);
-    ctx.strokeStyle = 'blue';
-    ctx.lineWidth = 2;
-    ctx.fillStyle = 'red';
-    ctx.fill();
-    ctx.stroke();
-    ctx.closePath();
-}
+// Objeto contenedor de enemigos y sus parámetros
+const padreEnemigo = {
+    x: 5,
+    y: 5,
+    velocidadX: 2,
+};
 
-// Initial drawing
-dibujarP(xop, yop, 50, 50, "green");
-dibujarO(xo, yo);
+// Enemigos que van dentro del padre
+let enemigos = [
+    { offsetX: 0, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 40, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 80, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 120, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 160, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 200, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 240, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 280, offsetY: 0, width: 30, height: 30 },
+    { offsetX: 0, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 40, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 80, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 120, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 160, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 200, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 240, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 280, offsetY: 40, width: 30, height: 30 },
+    { offsetX: 0, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 40, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 80, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 120, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 160, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 200, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 240, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 280, offsetY: 80, width: 30, height: 30 },
+];
 
-// Main update function
+// Array que almacena el nombre de las imágenes
+const image_sources = ["mcdonalds.png", "rayquaza.png", "sans.png", "yoda.png", 'españa.png'];
+
+// Precargar imágenes
+const loadedImages = [];
+image_sources.forEach((src) => {
+    const image = new Image();
+    image.src = src;
+    loadedImages.push(image);
+});
+
+// Asignar una imagen aleatoria a cada enemigo al inicio
+enemigos.forEach((enemy) => {
+    enemy.image = loadedImages[Math.floor(Math.random() * loadedImages.length)];
+});
+
+// Objeto para rastrear las teclas presionadas
+const keys = {};
+
+// Escuchar eventos de teclado
+document.addEventListener("keydown", (event) => {
+    keys[event.key] = true;
+});
+
+document.addEventListener("keyup", (event) => {
+    keys[event.key] = false;
+});
+
+// Función principal de animación
 function update() {
-    // Update horizontal position
-    xp += velX;
 
-    // Check for wall collisions and reverse direction
-    if (xp + 50 >= canvas.width || xp <= 0) {
-        velX = -velX; // Reverse direction
+    // Condición de rebote en extremos del canvas
+    if (padreEnemigo.x < 0 || padreEnemigo.x >= mapa.width - 315) {
+        padreEnemigo.y += 20;
+        padreEnemigo.velocidadX = -padreEnemigo.velocidadX;
     }
 
-    // Update vertical position if jumping
-    if (isJumping) {
-        yp += velY;
-        velY += gravity; // Apply gravity
-
-        // Stop jumping when the square lands
-        if (yp >= yop) {
-            yp = yop;
-            isJumping = false;
-            velY = 0;
-        }
+    // Detener el juego si padreEnemigo llega a una coordenada específica
+    if (padreEnemigo.y >= mapa.height - 170) {
+        jugar = false; 
+        return;
     }
 
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Actualizar la posición del contenedor de enemigos
+    padreEnemigo.x += padreEnemigo.velocidadX;
 
-    // Redraw the target and projectile
-    dibujarO(xo, yo);
-    dibujarP(xp, yp, 50, 50, "blue");
+    // Actualizar la posición del protagonista según las teclas presionadas
+    if (keys["ArrowLeft"] && prota.x > 0) {
+        prota.x -= prota.velocidad;
+    }
+    if (keys["ArrowRight"] && prota.x < mapa.width - 50) {
+        prota.x += prota.velocidad;
+    }
 
-    // Repeat the animation
+    // Borrar el canvas
+    contexto.clearRect(0, 0, mapa.width, mapa.height);
+
+    // Dibujar enemigos
+    drawEnemies(contexto);
+
+    // Dibujar al prota
+    contexto.drawImage(iluminati, prota.x, prota.y);
+
+    // Volver a ejecutar update cuando toque
     requestAnimationFrame(update);
 }
 
-// Handle spacebar press for jumping
-document.addEventListener("keydown", (event) => {
-    if (event.code === "Space" && !isJumping) {
-        isJumping = true;
-        velY = -10; // Initial jump velocity
-    }
-});
+// Función para dibujar enemigos
+function drawEnemies(contexto) {
+    enemigos.forEach((enemy) => {
+        // Calcula la posición real de cada nave
+        let enemyX = padreEnemigo.x + enemy.offsetX;
+        let enemyY = padreEnemigo.y + enemy.offsetY;
 
-// Button callbacks
-btnLanzar.onclick = () => {
-    update();
-};
+        // Dibuja la imagen asignada al enemigo
+        contexto.drawImage(enemy.image, enemyX, enemyY, enemy.width, enemy.height);
+    });
+}
 
-btnIniciar.onclick = () => {
-    location.reload();
-};
+// ¡Que empiece la función!
+if (jugar) update();
