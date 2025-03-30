@@ -24,3 +24,48 @@ body {
     display: none;
   }
   
+  .columna {
+    float: left;
+    padding: 10px;
+    min-height: 50px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 5px solid;
+    border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
+  }
+
+  .fila {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    min-height: 160px;
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .izquierdayuda {
+    width: 63%;
+    background-color: rgba(0, 0, 0);
+    color: white;
+    margin: 0 auto;
+  }
+
+  .cursiva{
+      font-style: italic;
+  }
+
+  .textoderecha{
+    text-align: right;
+  }
+  
+  .textonormal{
+    font-style: verdana;
+  }
+  
+  .textoizquierda{
+    text-align: right;
+    
+  }
+  
