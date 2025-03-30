@@ -5,20 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Las naves también tienen sentimientos</title>
     <script src="jueguito.js" defer></script>
+    <script src="crono.js" defer></script>
     <link rel="stylesheet" href="jueguito.css">
         
 </head>
 <body>
-    <canvas id="mapa"></canvas>
-    <div class="fila izquierdayuda ">
-        <div class="columna" style="max-width: 130px;">
-            <img id="fotoTexto" src="obama.jpg" alt="html5" width="100" height="100" style="max-width: 100px; max-height: 100px;">
+
+    <div style="display: flex; align-items: center; justify-content: space-around;">
+        <h1>Coins</h1>
+        <canvas id="mapa"></canvas>
+        <h1 class="cronometro" style="padding-top: 30px;" id="display">0:0:0</h1>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-around;">
+
+        <button id="botonizquierda" class="boton"><==</button>
+        <button id="botonderecha" class="boton">==></button>
+
+        <div class="fila izquierdayuda" style="display: flex; align-items: center;">
+            <div class="columna" style="max-width: 130px;">
+                <img id="fotoTexto" src="obama.jpg" alt="html5" width="100" height="100" style="max-width: 100px; max-height: 100px;">
+            </div>
+            <div class="textoderecha cursiva" id="cajaTexto">
+                <p>Presidente:</p>
+                <p>"¡Soldado!, ¡debes detener a los conspiranoicos antes de que se sepa que llevan razón!"</p>
+                <p>"¡Detenlos antes de que lleguen a la Casa Blanca!"</p>
+            </div>
         </div>
-        <div class="textoderecha cursiva" id="cajaTexto">
-            <p>Presidente:</p>
-            <p>"¡Soldado!, ¡debes detener a los conspiranoicos antes de que se sepa que llevan razón!"</p>
-            <p>"¡Detenlos antes de que lleguen a la Casa Blanca!"</p>
-        </div>
+        
+        
+        <button id="botondisparar" class="boton">Disparar</button>
+        <button id="botonreiniciar" class="boton">Restart</button>
     </div>
     <img src="iluminati.png" alt="No encontrada" id="iluminati">
     

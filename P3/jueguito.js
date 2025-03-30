@@ -6,7 +6,9 @@ let jugar = true;
 const contexto = mapa.getContext("2d");
 
 var iluminati = document.getElementById("iluminati");
-var banderaespaña = document.getElementById("banderaespaña");
+
+const explosion = new Image();
+explosion.src = "explosion.png";
 
 fotoTexto = document.getElementById('fotoTexto');
 cajaTexto = document.getElementById('cajaTexto');
@@ -24,14 +26,14 @@ let disparoAudio = new Audio('disparo (2).mp3');
 const prota = {
     x: 5,
     y: 343,
-    velocidad: 5,
+    velocidad: 3,
 };
 
 // Contenedor de enemigos
 const padreEnemigo = {
     x: 5,
     y: 5,
-    velocidadX: 2,
+    velocidadX: 4.5,
 };
 
 // Array que almacenará los disparos
@@ -78,17 +80,18 @@ function cajasTexto() {
     function cambiarCombinacion() {
         const combinacion = combinaciones[Math.floor(Math.random() * combinaciones.length)];
         cajaTexto.textContent = combinacion.texto;
-        fotoTexto.src = combinacion.imagen; // Asegúrate de que las imágenes estén en la ruta correcta
+        fotoTexto.src = combinacion.imagen; 
     }
 
    
     if (jugar){
     setInterval(cambiarCombinacion, 6000);
     }  
-     
+
 }
 
 // Llamar a la función para iniciar el cambio
+
 cajasTexto();
 
 // Enemigos y sus parámetros
@@ -162,6 +165,44 @@ function drawEnemies(contexto) {
     });
 }
 
+
+function comprobarMuerte() {
+    for (let i = disparos.length - 1; i >= 0; i--) {
+        for (let j = enemigos.length - 1; j >= 0; j--) {
+            let disparo = disparos[i];
+            let enemigo = enemigos[j];
+
+            // Detección de colisión
+            if (
+                disparo.x >= padreEnemigo.x + enemigo.offsetX &&
+                disparo.x <= padreEnemigo.x + enemigo.offsetX + enemigo.width &&
+                disparo.y >= padreEnemigo.y + enemigo.offsetY &&
+                disparo.y <= padreEnemigo.y + enemigo.offsetY + enemigo.height
+            ) {
+                // Eliminar disparo
+                disparos.splice(i, 1);
+
+                // Cambiar imagen del enemigo por la explosión
+                enemigo.image = explosion;
+
+                // Esperar 1 segundo y eliminar el enemigo
+                setTimeout(() => {
+                    enemigos.splice(j, 1);
+
+                    // Verificar si ganaste
+                    if (enemigos.length <= 0) {
+                        ganar();
+                    }
+                }, 1000);
+
+                break; // Salir del bucle interno para evitar errores de índice
+            }
+        }
+    }
+}
+
+
+
 // Función principal de animación
 function update() {
     // Borrar el canvas al inicio de cada frame
@@ -192,7 +233,7 @@ function update() {
             primeravez = false;
         }
     }
-
+    comprobarMuerte();
     // Dibujar enemigos y al protagonista
     drawEnemies(contexto);
     contexto.drawImage(iluminati, prota.x, prota.y);
