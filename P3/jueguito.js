@@ -13,6 +13,12 @@ explosion.src = "explosion.png";
 fotoTexto = document.getElementById('fotoTexto');
 cajaTexto = document.getElementById('cajaTexto');
 
+const botonizquierda = document.getElementById("botonizquierda");
+const botonderecha = document.getElementById("botonderecha");
+const botondisparar = document.getElementById("botondisparar");
+const botonreiniciar = document.getElementById("botonreiniciar");
+
+const teclas = [botonizquierda, botonderecha, botondisparar, botonreiniciar];
 
 iluminati.onload = () => {
     contexto.drawImage(iluminati, 5, 343);
@@ -146,13 +152,22 @@ document.addEventListener("keydown", (event) => {
     // Usamos event.code para detectar la barra espaciadora
     if (event.code === "Space" && !keys["Space"]) {
         disparar();
-        if(jugar) {Sonido(disparoAudio)};
+        if (jugar) {
+            Sonido(disparoAudio);
+        }
     }
     keys[event.code] = true;
 });
 
 document.addEventListener("keyup", (event) => {
     keys[event.code] = false;
+});
+
+teclas[2].addEventListener("click", () => {
+    if (jugar) {
+        disparar();
+        Sonido(disparoAudio);
+    }
 });
 
 // Función para dibujar enemigos
@@ -222,11 +237,11 @@ function update() {
     padreEnemigo.x += padreEnemigo.velocidadX;
 
     // Actualizar la posición del protagonista según las teclas presionadas
-    if (keys["ArrowLeft"] && prota.x > 0) {
+    if ((keys["ArrowLeft"] || teclas[0].onclick) && prota.x > 0) {
         prota.x -= prota.velocidad;
         
     }
-    if (keys["ArrowRight"] && prota.x < mapa.width - 50) {
+    if ((keys["ArrowRight"] || teclas[1].onclick) && prota.x < mapa.width - 50) {
         prota.x += prota.velocidad;
         if (primeravez){
             playSongInLoop(MEGALOVANIA);
