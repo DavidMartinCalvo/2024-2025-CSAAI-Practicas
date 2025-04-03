@@ -32,14 +32,14 @@ let disparoAudio = new Audio('disparo (2).mp3');
 const prota = {
     x: 5,
     y: 343,
-    velocidad: 3,
+    velocidad: 4.5,
 };
 
 // Contenedor de enemigos
 const padreEnemigo = {
     x: 5,
     y: 5,
-    velocidadX: 4.5,
+    velocidadX: 3,
 };
 
 // Array que almacenará los disparos
@@ -55,7 +55,9 @@ function disparar() {
     });
 }
 
-primeravez = true;
+
+let primeravez = true;
+const clicks = [false, false];
 
 function playSongInLoop(audio) {
     audio.loop = true;
@@ -148,13 +150,18 @@ enemigos.forEach((enemy) => {
 const keys = {};
 
 // Escuchar eventos de teclado
+let puedeDisparar = true;
+
 document.addEventListener("keydown", (event) => {
-    // Usamos event.code para detectar la barra espaciadora
-    if (event.code === "Space" && !keys["Space"]) {
+    if (event.code === "Space" && !keys["Space"] && puedeDisparar) {
         disparar();
         if (jugar) {
             Sonido(disparoAudio);
         }
+        puedeDisparar = false;
+        setTimeout(() => {
+            puedeDisparar = true;
+        }, 1000);
     }
     keys[event.code] = true;
 });
@@ -164,9 +171,13 @@ document.addEventListener("keyup", (event) => {
 });
 
 teclas[2].addEventListener("click", () => {
-    if (jugar) {
+    if (jugar && puedeDisparar) {
         disparar();
         Sonido(disparoAudio);
+        puedeDisparar = false;
+        setTimeout(() => {
+            puedeDisparar = true;
+        }, 1000);
     }
 });
 
@@ -237,17 +248,19 @@ function update() {
     padreEnemigo.x += padreEnemigo.velocidadX;
 
     // Actualizar la posición del protagonista según las teclas presionadas
-    if ((keys["ArrowLeft"] || teclas[0].onclick) && prota.x > 0) {
+    if (keys["ArrowLeft"] && prota.x > 0) {
         prota.x -= prota.velocidad;
-        
     }
-    if ((keys["ArrowRight"] || teclas[1].onclick) && prota.x < mapa.width - 50) {
+    if (keys["ArrowRight"] && prota.x < mapa.width - 50) {
         prota.x += prota.velocidad;
-        if (primeravez){
+        if (primeravez) {
             playSongInLoop(MEGALOVANIA);
             primeravez = false;
         }
     }
+
+    
+
     comprobarMuerte();
     // Dibujar enemigos y al protagonista
     drawEnemies(contexto);
