@@ -73,6 +73,17 @@ function Sonido(audio) {
     audio.play();
 }
 
+function ganar() {
+    // Detener la música y mostrar mensaje de victoria
+    stopSong(MEGALOVANIA);
+    alert("¡Has ganado!");
+    jugar = false;
+    contexto.clearRect(0, 0, mapa.width, mapa.height);
+    contexto.drawImage(iluminati, (mapa.width)/2, ( mapa.height)/2);
+    contexto.font = "30px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("¡Felicidades!, ¡Salvaste a tu país ocultándoles la verdad!", 90, 60);
+}
 
 function cajasTexto() {
     // Base de datos de combinaciones de imágenes y textos
@@ -236,13 +247,14 @@ function update() {
 
     // Actualizar la posición del contenedor de enemigos y cambiar dirección en los extremos
     if (padreEnemigo.x < 0 || padreEnemigo.x >= mapa.width - 315) {
-        padreEnemigo.y += 20;
+        padreEnemigo.y += 12;
         padreEnemigo.velocidadX = -padreEnemigo.velocidadX;
     }
     // Detener el juego si el contenedor de enemigos alcanza cierta coordenada
     if (padreEnemigo.y >= mapa.height - 170) {
         jugar = false; 
         stopSong(MEGALOVANIA);
+        perder();
         return;
     }
     padreEnemigo.x += padreEnemigo.velocidadX;
