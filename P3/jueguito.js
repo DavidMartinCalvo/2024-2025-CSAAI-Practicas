@@ -10,8 +10,8 @@ var iluminati = document.getElementById("iluminati");
 const explosion = new Image();
 explosion.src = "explosion.png";
 
-fotoTexto = document.getElementById('fotoTexto');
-cajaTexto = document.getElementById('cajaTexto');
+const fotoTexto = document.getElementById('fotoTexto');
+const cajaTexto = document.getElementById('cajaTexto');
 
 const botonizquierda = document.getElementById("botonizquierda");
 const botonderecha = document.getElementById("botonderecha");
@@ -27,6 +27,7 @@ iluminati.onload = () => {
 let MEGALOVANIA = new Audio('MEGALOVANIA.mp3');
 let disparoAudio = new Audio('disparo (2).mp3');
 
+let coinsReales = 0;
 
 // Objeto del protagonista
 const prota = {
@@ -47,14 +48,12 @@ let disparos = [];
 
 // Función para crear un nuevo disparo
 function disparar() {
-    // Se crea un disparo con las coordenadas actuales del protagonista
     disparos.push({
         x: prota.x + 20,
         y: prota.y,
         velocidad: 7
     });
 }
-
 
 let primeravez = true;
 const clicks = [false, false];
@@ -74,19 +73,20 @@ function Sonido(audio) {
 }
 
 function ganar() {
-    // Detener la música y mostrar mensaje de victoria
     stopSong(MEGALOVANIA);
     alert("¡Has ganado!");
     jugar = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
-    contexto.drawImage(iluminati, (mapa.width)/2, ( mapa.height)/2);
-    contexto.font = "30px Arial";
-    ctx.fillStyle = "black";
-    ctx.fillText("¡Felicidades!, ¡Salvaste a tu país ocultándoles la verdad!", 90, 60);
+}
+
+function perder() {
+    stopSong(MEGALOVANIA);
+    alert("¡Has perdido!");
+    jugar = false;
+    contexto.clearRect(0, 0, mapa.width, mapa.height);
 }
 
 function cajasTexto() {
-    // Base de datos de combinaciones de imágenes y textos
     const combinaciones = [
         { texto: "Me llamo Sans y te voy a reventar el planeta si no me vences jajaja espabila noob", imagen: "sans.png" },
         { texto: "Soy el guardian de los cielos, quién osa volar sin mi permiso", imagen: "rayquaza.png" },
@@ -95,21 +95,16 @@ function cajasTexto() {
         { texto: "Mc Auto ahora también disponible para aviones y naves espaciales!", imagen: "mcdonalds.png" },
     ];
 
-    // Función para cambiar aleatoriamente cajaTexto y fotoTexto
     function cambiarCombinacion() {
         const combinacion = combinaciones[Math.floor(Math.random() * combinaciones.length)];
         cajaTexto.textContent = combinacion.texto;
         fotoTexto.src = combinacion.imagen; 
     }
 
-   
-    if (jugar){
-    setInterval(cambiarCombinacion, 6000);
+    if (jugar) {
+        setInterval(cambiarCombinacion, 6000);
     }  
-
 }
-
-// Llamar a la función para iniciar el cambio
 
 cajasTexto();
 
@@ -141,10 +136,8 @@ let enemigos = [
     { offsetX: 280, offsetY: 80, width: 30, height: 30 },
 ];
 
-// Array con nombres de imágenes para enemigos
 const image_sources = ["mcdonalds.png", "rayquaza.png", "sans.png", "yoda.png", "españa.png"];
 
-// Precargar imágenes
 const loadedImages = [];
 image_sources.forEach((src) => {
     const image = new Image();
@@ -152,7 +145,6 @@ image_sources.forEach((src) => {
     loadedImages.push(image);
 });
 
-// Asignar una imagen aleatoria a cada enemigo al inicio
 enemigos.forEach((enemy) => {
     enemy.image = loadedImages[Math.floor(Math.random() * loadedImages.length)];
 });
@@ -160,7 +152,6 @@ enemigos.forEach((enemy) => {
 // Objeto para rastrear las teclas presionadas
 const keys = {};
 
-// Escuchar eventos de teclado
 let puedeDisparar = true;
 
 document.addEventListener("keydown", (event) => {
@@ -192,16 +183,25 @@ teclas[2].addEventListener("click", () => {
     }
 });
 
-// Función para dibujar enemigos
+// Agregar manejo de botones para movimiento:
+let botonIzquierdaPressed = false;
+let botonDerechaPressed = false;
+
+botonizquierda.addEventListener("mousedown", () => { botonIzquierdaPressed = true; });
+botonizquierda.addEventListener("mouseup", () => { botonIzquierdaPressed = false; });
+botonizquierda.addEventListener("mouseleave", () => { botonIzquierdaPressed = false; });
+
+botonderecha.addEventListener("mousedown", () => { botonDerechaPressed = true; });
+botonderecha.addEventListener("mouseup", () => { botonDerechaPressed = false; });
+botonderecha.addEventListener("mouseleave", () => { botonDerechaPressed = false; });
+
 function drawEnemies(contexto) {
     enemigos.forEach((enemy) => {
-        // Calcula la posición real de cada enemigo
         let enemyX = padreEnemigo.x + enemy.offsetX;
         let enemyY = padreEnemigo.y + enemy.offsetY;
         contexto.drawImage(enemy.image, enemyX, enemyY, enemy.width, enemy.height);
     });
 }
-
 
 function comprobarMuerte() {
     for (let i = disparos.length - 1; i >= 0; i--) {
@@ -209,48 +209,35 @@ function comprobarMuerte() {
             let disparo = disparos[i];
             let enemigo = enemigos[j];
 
-            // Detección de colisión
             if (
                 disparo.x >= padreEnemigo.x + enemigo.offsetX &&
                 disparo.x <= padreEnemigo.x + enemigo.offsetX + enemigo.width &&
                 disparo.y >= padreEnemigo.y + enemigo.offsetY &&
                 disparo.y <= padreEnemigo.y + enemigo.offsetY + enemigo.height
             ) {
-                // Eliminar disparo
                 disparos.splice(i, 1);
-
-                // Cambiar imagen del enemigo por la explosión
                 enemigo.image = explosion;
-
-                // Esperar 1 segundo y eliminar el enemigo
+                coinsReales += 1;
+                document.getElementById('coins').textContent = coinsReales;
                 setTimeout(() => {
                     enemigos.splice(j, 1);
-
-                    // Verificar si ganaste
                     if (enemigos.length <= 0) {
                         ganar();
                     }
                 }, 1000);
-
-                break; // Salir del bucle interno para evitar errores de índice
+                break;
             }
         }
     }
 }
 
-
-
-// Función principal de animación
 function update() {
-    // Borrar el canvas al inicio de cada frame
     contexto.clearRect(0, 0, mapa.width, mapa.height);
 
-    // Actualizar la posición del contenedor de enemigos y cambiar dirección en los extremos
     if (padreEnemigo.x < 0 || padreEnemigo.x >= mapa.width - 315) {
         padreEnemigo.y += 12;
         padreEnemigo.velocidadX = -padreEnemigo.velocidadX;
     }
-    // Detener el juego si el contenedor de enemigos alcanza cierta coordenada
     if (padreEnemigo.y >= mapa.height - 170) {
         jugar = false; 
         stopSong(MEGALOVANIA);
@@ -259,11 +246,11 @@ function update() {
     }
     padreEnemigo.x += padreEnemigo.velocidadX;
 
-    // Actualizar la posición del protagonista según las teclas presionadas
-    if (keys["ArrowLeft"] && prota.x > 0) {
+    // Mover al protagonista según las flechas del teclado o los botones presionados:
+    if ((keys["ArrowLeft"] || botonIzquierdaPressed) && prota.x > 0) {
         prota.x -= prota.velocidad;
     }
-    if (keys["ArrowRight"] && prota.x < mapa.width - 50) {
+    if ((keys["ArrowRight"] || botonDerechaPressed) && prota.x < mapa.width - 50) {
         prota.x += prota.velocidad;
         if (primeravez) {
             playSongInLoop(MEGALOVANIA);
@@ -271,14 +258,11 @@ function update() {
         }
     }
 
-    
-
     comprobarMuerte();
-    // Dibujar enemigos y al protagonista
     drawEnemies(contexto);
     contexto.drawImage(iluminati, prota.x, prota.y);
 
-    // Actualizar la posición de cada disparo y dibujarlos
+    // Actualizar y dibujar cada disparo
     for (let i = disparos.length - 1; i >= 0; i--) {
         disparos[i].y -= disparos[i].velocidad;
         contexto.beginPath();
@@ -287,16 +271,12 @@ function update() {
         contexto.fill();
         contexto.stroke();
         contexto.closePath();
-        // Eliminar el disparo si sale del canvas
         if (disparos[i].y < 0) {
             disparos.splice(i, 1);
         }
     }
 
-    // Continuar la animación
     requestAnimationFrame(update);
 }
 
-// ¡Inicia la animación!
 if (jugar) update();
-

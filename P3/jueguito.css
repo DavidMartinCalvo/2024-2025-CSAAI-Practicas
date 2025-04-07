@@ -4,141 +4,81 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  margin: 0;
-  font-family: sans-serif;
-}
-
-.encabezado {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
-  gap: 20px;
-  text-align: center;
 }
 
 #mapa {
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 3px solid red;
-  border-radius: 5px;
-  display: block;
-  height: 300px;
-  width: 90%;
-  max-width: 600px;
-}
-
-#iluminati {
-  display: none;
-}
-
-.boton {
-  min-height: 60px;
-  min-width: 60px;
-  border-radius: 10px;
-  background-color: rgba(216, 15, 15);
-  color: white;
-  padding: 10px;
-  margin: 5px;
-  font-size: 1rem;
-}
-
-.controles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 20px;
-}
-
-.columna {
-  padding: 10px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  border: 5px solid;
-  border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
-  
-}
-
-.fila {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-  width: 100%;
-  min-height: 160px;
-}
-
-.izquierdayuda {
-  width: 100%;
-  background-color: rgba(0, 0, 0);
-  color: white;
-  border: 6px solid white;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.cursiva {
-  font-style: italic;
-  text-align: center;
-}
-
-.textoderecha {
-  text-align: right;
-  max-width: 400px;
-}
-
-.portada {
-  max-width: 100px;
-  height: auto;
-  border-radius: 10px;
-  
-}
-
-.foto{
-  max-height: 150px; 
-  display: block; 
-  margin-left: auto; 
-  margin-right: auto;
-}
-
-.titulo {
-  font-family: monospace;
-  margin: 0;
-  text-shadow: 0 0 5px red, 0 0 15px red, 0 0 30px red;
-  text-align: center;
-  color: white;
-  -webkit-text-stroke: 1px rgb(100, 96, 96);
-}
-
-/* Media Query para pantallas pequeñas */
-@media screen and (max-width: 600px) {
-  .encabezado {
-    flex-direction: column;
-    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-style: solid;
+    border-width: 3px;
+    border-color: red;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    height: 80%;
   }
 
-  .fila {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .textoderecha {
-    text-align: center;
-  }
-
-  #mapa {
-    height: 300px;
+  /* Imagen deshabilitada
+   Se usa para leerla desde js y
+   meterla en el canvas */
+   #iluminati {
+    display: none;
   }
 
   .boton {
-    min-width: 50px;
-    min-height: 50px;
-    font-size: 0.9rem;
+    min-height: 100px;
+    min-width: 100px;
+    border-radius: 10px;
+    background-color: rgba(216, 15, 15);
+    color: white;
+    padding: 10px;
+
+
   }
-}
+  
+  .columna {
+    float: left;
+    padding: 10px;
+    min-height: 50px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 5px solid;
+    border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
+  }
+
+  .fila {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    min-height: 160px;
+    width: 100%;
+  }
+
+  .izquierdayuda {
+    width: 63%;
+    background-color: rgba(0, 0, 0);
+    color: white;
+    margin: 0 auto;
+    border-style: solid;
+    border-width: 6px;
+    border-color: white;
+  }
+
+  .cursiva{
+      font-style: italic;
+  }
+
+  .textoderecha{
+    text-align: right;
+  }
+  
+  .textonormal{
+    font-style: verdana;
+  }
+  
+  .textoizquierda{
+    text-align: right;
+    
+  }
+  
