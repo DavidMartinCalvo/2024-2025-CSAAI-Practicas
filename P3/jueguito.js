@@ -13,6 +13,12 @@ explosion.src = "explosion.png";
 const fotoTexto = document.getElementById('fotoTexto');
 const cajaTexto = document.getElementById('cajaTexto');
 
+const casablanca = new Image();
+casablanca.src = "casablanca.png";
+
+const perderi = new Image();
+perderi.src = "perder.png";
+
 const botonizquierda = document.getElementById("botonizquierda");
 const botonderecha = document.getElementById("botonderecha");
 const botondisparar = document.getElementById("botondisparar");
@@ -24,8 +30,9 @@ iluminati.onload = () => {
     contexto.drawImage(iluminati, 5, 343);
 };
 
-let MEGALOVANIA = new Audio('MEGALOVANIA.mp3');
+let MEGALOVANIA = new Audio('himno.m4a');
 let disparoAudio = new Audio('disparo (2).mp3');
+
 
 let coinsReales = 0;
 
@@ -77,6 +84,7 @@ function ganar() {
     alert("¡Has ganado!");
     jugar = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
+    contexto.drawImage(casablanca, 0, 0, mapa.width, mapa.height);
 }
 
 function perder() {
@@ -84,15 +92,16 @@ function perder() {
     alert("¡Has perdido!");
     jugar = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
+    contexto.drawImage(perderi, 0, 0, mapa.width, mapa.height);
 }
 
 function cajasTexto() {
     const combinaciones = [
-        { texto: "Me llamo Sans y te voy a reventar el planeta si no me vences jajaja espabila noob", imagen: "sans.png" },
-        { texto: "Soy el guardian de los cielos, quién osa volar sin mi permiso", imagen: "rayquaza.png" },
-        { texto: "Has llegado tan alto como yo jajajaja. Te voy a robar el oro", imagen: "españa.png" },
-        { texto: "Espabilar tú debes, y abandonar esta lucha sin sentido es lo que harás", imagen: "yoda.png" },
-        { texto: "Mc Auto ahora también disponible para aviones y naves espaciales!", imagen: "mcdonalds.png" },
+        { texto: "La nieve NO EXISTE. Es plástico. El gobierno la ha sustituido. ¿No me crees? QUÉMALA CON UN MECHERO. NO SE DERRITE VERDAD???? JÁ, se hace negra COMO EL PLÁSTICO AAAAA", imagen: "sans.png" },
+        { texto: "LA TIERRA ES PLANA. Piénsalo, te caerías si fuera redonda. Son mentiras que se inventó Elon Musk para vender coches. ¿Por qué no se cae el agua? ESPABILA, HAY UN MURO EN LA ANTARTIDA.", imagen: "rayquaza.png" },
+        { texto: "¡Si corremos como Naruto sus balas no nos darán!¡Liberad a mi pueblo del Área 51!, vengo de Raticulínn en la galaxia andrómeda para luchar por sus derechos.", imagen: "españa.png" },
+        { texto: "¡Las palomas no existen!, son cámaras espía del gobierno para controlar a la población. Que no te engañen, ¡dispáralas cuando las veas por la calle y verás sus circuitos!", imagen: "yoda.png" },
+        { texto: "OEEEOOO, EL COVID NO EXISTE. ¡ES UN INVENTO DE PERRO SANXE PARA AHORRAR AGUA!. ¿Conoces a alguien con covid? ES UN ACTOR PAGADO POR PERRO SANXEEEEE.", imagen: "mcdonalds.png" },
     ];
 
     function cambiarCombinacion() {
@@ -219,6 +228,7 @@ function comprobarMuerte() {
                 enemigo.image = explosion;
                 coinsReales += 1;
                 document.getElementById('coins').textContent = coinsReales;
+                padreEnemigo.velocidadX += 4;
                 setTimeout(() => {
                     enemigos.splice(j, 1);
                     if (enemigos.length <= 0) {
@@ -259,7 +269,9 @@ function update() {
     }
 
     comprobarMuerte();
+    contexto.drawImage(casablanca, 0, 0, mapa.width, mapa.height);
     drawEnemies(contexto);
+    
     contexto.drawImage(iluminati, prota.x, prota.y);
 
     // Actualizar y dibujar cada disparo
