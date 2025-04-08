@@ -228,7 +228,7 @@ function comprobarMuerte() {
                 enemigo.image = explosion;
                 coinsReales += 1;
                 document.getElementById('coins').textContent = coinsReales;
-                padreEnemigo.velocidadX += 4;
+                //padreEnemigo.velocidadX += 4;
                 setTimeout(() => {
                     enemigos.splice(j, 1);
                     if (enemigos.length <= 0) {

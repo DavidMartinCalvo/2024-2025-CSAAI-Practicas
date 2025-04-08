@@ -1,32 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Las naves también tienen sentimientos</title>
-  <script src="jueguito.js" defer></script>
-  <script src="crono.js" defer></script>
-  <link rel="stylesheet" href="jueguito.css" />
+  <meta charset="UTF-8">
+  <title>Mi Juego</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .descripcion {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .boton {
+      margin-top: 30px;
+    }
+
+    .boton a {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .boton a:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <div class="encabezado">
-    <h1>Coins:</h1>
-    <p id="monedas">0</p>
-    <canvas id="mapa"></canvas>
-    
-  </div>
+  <div class="container">
+    <!-- Video (reemplaza "video.mp4" por tu archivo) -->
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
 
-    <div class="fila izquierdayuda">
-      <div class="columna">
-        <img id="fotoTexto" src="obama.jpg" alt="html5" class="portada" />
-      </div>
-      <div class="textoderecha cursiva" id="cajaTexto">
-        <p>Presidente:</p>
-        <p>"¡Soldado!, ¡debes detener a los conspiranoicos antes de que se sepa que llevan razón!"</p>
-        <p>"¡Detenlos antes de que lleguen a la Casa Blanca!"</p>
-      </div>
+    <!-- Texto explicando los controles -->
+    <div class="descripcion">
+      Usa las teclas <strong>W, A, S, D</strong> para moverte.<br>
+      Presiona <strong>Espacio</strong> para saltar.<br>
+      Pulsa <strong>Shift</strong> para correr más rápido.
     </div>
 
-  <img src="iluminati.png" alt="No encontrada" id="iluminati" />
+    <!-- Botón para ir a otra página -->
+    <div class="boton">
+      <a href="https://ejemplo.com" target="_blank">Ir a la página del juego</a>
+    </div>
+  </div>
 </body>
 </html>
