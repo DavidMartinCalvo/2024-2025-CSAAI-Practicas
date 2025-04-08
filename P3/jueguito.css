@@ -1,7 +1,4 @@
 
-    /* ========================================
-       ESTILOS GLOBALES
-       ======================================== */
     body {
       margin: 0;
       padding: 0;
@@ -17,10 +14,6 @@
       margin: 0.5em;
     }
     
-    /* ========================================
-       CONTENEDORES
-       ======================================== */
-    /* Contenedor de la sección media con canvas y caja de texto */
     .middle-section {
       display: flex;
       justify-content: center;
@@ -29,7 +22,7 @@
       margin: 10px;
     }
     
-    /* Contenedor del canvas */
+    
     .canvas-container {
       flex: 1;
       min-width: 300px;
@@ -38,7 +31,7 @@
       justify-content: center;
       align-items: center;
     }
-    /* El canvas se adapta al ancho disponible y conserva su relación de aspecto (2:1, por ejemplo 800x400) */
+    
     .canvas-container canvas {
       width: 100%;
       max-width: 800px;
@@ -48,7 +41,7 @@
       border-radius: 5px;
     }
     
-    /* Caja de texto a la derecha */
+  
     .text-container {
       flex: 1;
       min-width: 300px;
@@ -60,7 +53,7 @@
       padding: 10px;
       text-align: center;
     }
-    /* Dentro de la caja de texto: La imagen se muestra encima del texto */
+    
     .text-container img {
       width: 100%;
       max-width: 150px;
@@ -69,7 +62,7 @@
       display: block;
     }
     
-    /* Contenedor de botones (siempre debajo de todo) */
+  
     .button-container {
       display: flex;
       flex-wrap: wrap;
@@ -87,10 +80,7 @@
       font-size: 1em;
     }
     
-    /* ========================================
-       MEDIA QUERIES (RESPONSIVE)
-       ======================================== */
-    /* En dispositivos móviles se reordena la sección media para que los elementos se apilen verticalmente */
+    
     @media (max-width: 768px) {
       .middle-section {
         flex-direction: column;

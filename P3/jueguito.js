@@ -199,7 +199,7 @@ teclas[2].addEventListener("click", () => {
     }
 });
 
-// Agregar manejo de botones para movimiento:
+// Agregar manejo de botones 
 let botonIzquierdaPressed = false;
 let botonDerechaPressed = false;
 
@@ -210,6 +210,35 @@ botonizquierda.addEventListener("mouseleave", () => { botonIzquierdaPressed = fa
 botonderecha.addEventListener("mousedown", () => { botonDerechaPressed = true; });
 botonderecha.addEventListener("mouseup", () => { botonDerechaPressed = false; });
 botonderecha.addEventListener("mouseleave", () => { botonDerechaPressed = false; });
+
+// Para el botón de la izquierda:
+botonizquierda.addEventListener("touchstart", (e) => { 
+    e.preventDefault(); 
+    botonIzquierdaPressed = true; 
+  });
+  botonizquierda.addEventListener("touchend", (e) => { 
+    e.preventDefault();
+    botonIzquierdaPressed = false; 
+  });
+  botonizquierda.addEventListener("touchcancel", (e) => { 
+    e.preventDefault();
+    botonIzquierdaPressed = false; 
+  });
+  
+  // Para el botón de la derecha:
+  botonderecha.addEventListener("touchstart", (e) => { 
+    e.preventDefault(); 
+    botonDerechaPressed = true; 
+  });
+  botonderecha.addEventListener("touchend", (e) => { 
+    e.preventDefault();
+    botonDerechaPressed = false; 
+  });
+  botonderecha.addEventListener("touchcancel", (e) => { 
+    e.preventDefault();
+    botonDerechaPressed = false; 
+  });
+  
 
 function drawEnemies(contexto) {
     enemigos.forEach((enemy) => {
