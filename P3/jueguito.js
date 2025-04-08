@@ -7,6 +7,8 @@ const contexto = mapa.getContext("2d");
 
 var iluminati = document.getElementById("iluminati");
 
+let bug = true;
+
 const explosion = new Image();
 explosion.src = "explosion.png";
 
@@ -32,7 +34,8 @@ iluminati.onload = () => {
 
 let MEGALOVANIA = new Audio('himno.m4a');
 let disparoAudio = new Audio('disparo (2).mp3');
-
+let perdersong = new Audio('perdersong.mp3');
+let victoria = new Audio('victoria.mp3');
 
 let coinsReales = 0;
 
@@ -81,15 +84,19 @@ function Sonido(audio) {
 
 function ganar() {
     stopSong(MEGALOVANIA);
-    alert("¡Has ganado!");
+    alert("¡Has salvado a tu país!, ¡Enhorabuena soldado!");
     jugar = false;
+    bug = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
     contexto.drawImage(casablanca, 0, 0, mapa.width, mapa.height);
+    playSongInLoop(victoria);
+    window.open("https://youtu.be/-S_8TjQcpMo", "_blank");
 }
 
 function perder() {
     stopSong(MEGALOVANIA);
-    alert("¡Has perdido!");
+    playSongInLoop(perdersong);
+    alert("Ahora la gente conocerá la verdad, eres una decepción para tu país, no mereces ser americano. Para volver a intentarlo vuelve al menú principal");
     jugar = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
     contexto.drawImage(perderi, 0, 0, mapa.width, mapa.height);
@@ -251,7 +258,9 @@ function update() {
     if (padreEnemigo.y >= mapa.height - 170) {
         jugar = false; 
         stopSong(MEGALOVANIA);
-        perder();
+        if (bug) {
+            perder();
+        }
         return;
     }
     padreEnemigo.x += padreEnemigo.velocidadX;
