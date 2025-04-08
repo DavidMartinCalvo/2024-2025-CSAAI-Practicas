@@ -1,85 +1,104 @@
-body {
-  background-image: url('usa.gif');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
 
-#mapa {
-    background-color: rgba(0, 0, 0, 0.7);
-    border-style: solid;
-    border-width: 3px;
-    border-color: red;
-    border-radius: 5px;
-    display: block;
-    margin: 0 auto;
-    height: 80%;
+    /* ========================================
+       ESTILOS GLOBALES
+       ======================================== */
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('usa.gif');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      font-family: sans-serif;
+    }
+    h1, p#coins {
+      text-align: center;
+      margin: 0.5em;
+    }
     
-  }
-
-  /* Imagen deshabilitada
-   Se usa para leerla desde js y
-   meterla en el canvas */
-   #iluminati {
-    display: none;
-  }
-
-  .boton {
-    min-height: 100px;
-    min-width: 100px;
-    border-radius: 10px;
-    background-color: rgba(216, 15, 15);
-    color: white;
-    padding: 10px;
-
-
-  }
-  
-  .columna {
-    float: left;
-    padding: 10px;
-    min-height: 50px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    border: 5px solid;
-    border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
-  }
-
-  .fila {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    min-height: 160px;
-    width: 100%;
-  }
-
-  .izquierdayuda {
-    width: 63%;
-    background-color: rgba(0, 0, 0);
-    color: white;
-    margin: 0 auto;
-    border-style: solid;
-    border-width: 6px;
-    border-color: white;
-  }
-
-  .cursiva{
-      font-style: italic;
-  }
-
-  .textoderecha{
-    text-align: right;
-  }
-  
-  .textonormal{
-    font-style: verdana;
-  }
-  
-  .textoizquierda{
-    text-align: right;
+    /* ========================================
+       CONTENEDORES
+       ======================================== */
+    /* Contenedor de la sección media con canvas y caja de texto */
+    .middle-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      margin: 10px;
+    }
     
-  }
+    /* Contenedor del canvas */
+    .canvas-container {
+      flex: 1;
+      min-width: 300px;
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    /* El canvas se adapta al ancho disponible y conserva su relación de aspecto (2:1, por ejemplo 800x400) */
+    .canvas-container canvas {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 2 / 1;
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 3px solid red;
+      border-radius: 5px;
+    }
+    
+    /* Caja de texto a la derecha */
+    .text-container {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      border: 6px solid white;
+      margin: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+    /* Dentro de la caja de texto: La imagen se muestra encima del texto */
+    .text-container img {
+      width: 100%;
+      max-width: 150px;
+      height: auto;
+      margin: 0 auto 10px auto;
+      display: block;
+    }
+    
+    /* Contenedor de botones (siempre debajo de todo) */
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 10px;
+    }
+    .button-container button {
+      min-height: 60px;
+      min-width: 60px;
+      margin: 5px;
+      border-radius: 10px;
+      background-color: rgba(216, 15, 15, 0.9);
+      color: white;
+      padding: 10px;
+      font-size: 1em;
+    }
+    
+    /* ========================================
+       MEDIA QUERIES (RESPONSIVE)
+       ======================================== */
+    /* En dispositivos móviles se reordena la sección media para que los elementos se apilen verticalmente */
+    @media (max-width: 768px) {
+      .middle-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      .canvas-container,
+      .text-container {
+        margin: 5px 0;
+      }
+    }
   

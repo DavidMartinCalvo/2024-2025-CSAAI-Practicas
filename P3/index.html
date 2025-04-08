@@ -1,44 +1,36 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Las naves también tienen sentimientos</title>
-    <script src="jueguito.js" defer></script>
-    <script src="crono.js" defer></script>
-    <link rel="stylesheet" href="jueguito.css">
-        
+  <meta charset="UTF-8">
+  <title>Mi Juego</title>
+  <link rel="stylesheet" href="portada.css">
+  
 </head>
 <body>
-    
-    <h1 style="text-align: center;">Amenazas neutralizadas:</h1>
-    <p id="coins" style="text-align: center;">0</p>
-    <div style="display: flex; align-items: center; justify-content: space-around;">
-        
-        <canvas id="mapa"></canvas>
+  <div class="container">
+    <!-- Video (reemplaza "video.mp4" por tu archivo) -->
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
+
+    <!-- Texto explicando los controles -->
+    <div class="descripcion">
+      
+      <strong>¡OBAMA TE NECESITA</strong> para silenciar a los conspiracionistas!
+      <br><br>
+      Usa las <strong>flechas derecha e izquierda</strong> para moverte.<br>
+      Presiona <strong>Espacio</strong> para disparar.<br>
+      <br><br>
+      Si juegas en <strong>dispositivo móvil</strong>, usa los <strong>botones de la pantalla.</strong><br>
+      
     </div>
 
-    <div style="display: flex; align-items: center; justify-content: space-around;">
-
-        <button id="botonizquierda" class="boton"><==</button>
-        <button id="botonderecha" class="boton">==></button>
-
-        <div class="fila izquierdayuda" style="display: flex; align-items: center;">
-            <div class="columna" style="max-width: 130px;">
-                <img id="fotoTexto" src="obama.jpg" alt="html5" width="100" height="100" style="max-width: 100px; max-height: 100px;">
-            </div>
-            <div class="textoderecha cursiva" id="cajaTexto">
-                <p>Presidente:</p>
-                <p>"¡Soldado!, ¡debes detener a los conspiranoicos antes de que se sepa que llevan razón!"</p>
-                <p>"¡Detenlos antes de que lleguen a la Casa Blanca!"</p>
-            </div>
-        </div>
-        
-        
-        <button id="botondisparar" class="boton">Disparar</button>
-        <button id="botonreiniciar" class="boton" onclick="window.open('https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/')">Restart</button>
+    <!-- Botón para ir a otra página -->
+    <div class="boton">
+      <a href="https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/juego.html" target="_blank">¡Lucharé por mi país!</a>
     </div>
-    <img src="iluminati.png" alt="No encontrada" id="iluminati">
-    
+  </div>
 </body>
 </html>
