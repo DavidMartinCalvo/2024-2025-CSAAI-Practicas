@@ -8,6 +8,7 @@ const contexto = mapa.getContext("2d");
 var iluminati = document.getElementById("iluminati");
 
 let bug = true;
+let final = true;
 
 const explosion = new Image();
 explosion.src = "explosion.png";
@@ -17,6 +18,9 @@ const cajaTexto = document.getElementById('cajaTexto');
 
 const casablanca = new Image();
 casablanca.src = "casablanca.png";
+
+const obama = new Image();
+obama.src = "obama.jpg";
 
 const perderi = new Image();
 perderi.src = "perder.png";
@@ -82,14 +86,21 @@ function Sonido(audio) {
     audio.play();
 }
 
+let intervaloCajasTexto; // Variable para almacenar el intervalo
+
 function ganar() {
     stopSong(MEGALOVANIA);
     alert("¡Has salvado a tu país!, ¡Enhorabuena soldado!");
+    final = false;
+    
+    document.getElementById('fotoTexto').src = obama.src;
+    document.getElementById('cajaTexto').textContent = "¡Has salvado a tu país!, ¡Enhorabuena soldado!";
     jugar = false;
     bug = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
     contexto.drawImage(casablanca, 0, 0, mapa.width, mapa.height);
     playSongInLoop(victoria);
+    clearInterval(intervaloCajasTexto); // Se detiene el interval de cambio de cajas de texto
     window.open("https://youtu.be/-S_8TjQcpMo", "_blank");
 }
 
@@ -97,9 +108,14 @@ function perder() {
     stopSong(MEGALOVANIA);
     playSongInLoop(perdersong);
     alert("Ahora la gente conocerá la verdad, eres una decepción para tu país, no mereces ser americano. Para volver a intentarlo vuelve al menú principal");
+    final = false;
+    // Se actualiza la imagen asignando la propiedad src
+    document.getElementById('fotoTexto').src = obama.src;
+    document.getElementById('cajaTexto').textContent = "No has podido salvar a tu país. Ahora la gente conocerá la verdad, eres una decepción para tu país, no mereces ser americano. Para volver a intentarlo vuelve al menú principal";
     jugar = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
     contexto.drawImage(perderi, 0, 0, mapa.width, mapa.height);
+    clearInterval(intervaloCajasTexto); // Se detiene el interval de cambio de cajas de texto
 }
 
 function cajasTexto() {
@@ -112,13 +128,17 @@ function cajasTexto() {
     ];
 
     function cambiarCombinacion() {
+        // Se comprueba que el juego siga activo antes de actualizar
+        if (!jugar || !final) {
+            return;
+        }
         const combinacion = combinaciones[Math.floor(Math.random() * combinaciones.length)];
         cajaTexto.textContent = combinacion.texto;
         fotoTexto.src = combinacion.imagen; 
     }
 
-    if (jugar) {
-        setInterval(cambiarCombinacion, 6000);
+    if (jugar && final)  {
+        intervaloCajasTexto = setInterval(cambiarCombinacion, 6000);
     }  
 }
 
@@ -199,7 +219,7 @@ teclas[2].addEventListener("click", () => {
     }
 });
 
-// Agregar manejo de botones 
+// Manejo de botones para mover al protagonista:
 let botonIzquierdaPressed = false;
 let botonDerechaPressed = false;
 
@@ -211,34 +231,33 @@ botonderecha.addEventListener("mousedown", () => { botonDerechaPressed = true; }
 botonderecha.addEventListener("mouseup", () => { botonDerechaPressed = false; });
 botonderecha.addEventListener("mouseleave", () => { botonDerechaPressed = false; });
 
-// Para el botón de la izquierda:
+// Para el botón de la izquierda (touch):
 botonizquierda.addEventListener("touchstart", (e) => { 
     e.preventDefault(); 
     botonIzquierdaPressed = true; 
-  });
-  botonizquierda.addEventListener("touchend", (e) => { 
+});
+botonizquierda.addEventListener("touchend", (e) => { 
     e.preventDefault();
     botonIzquierdaPressed = false; 
-  });
-  botonizquierda.addEventListener("touchcancel", (e) => { 
+});
+botonizquierda.addEventListener("touchcancel", (e) => { 
     e.preventDefault();
     botonIzquierdaPressed = false; 
-  });
+});
   
-  // Para el botón de la derecha:
-  botonderecha.addEventListener("touchstart", (e) => { 
+// Para el botón de la derecha (touch):
+botonderecha.addEventListener("touchstart", (e) => { 
     e.preventDefault(); 
     botonDerechaPressed = true; 
-  });
-  botonderecha.addEventListener("touchend", (e) => { 
+});
+botonderecha.addEventListener("touchend", (e) => { 
     e.preventDefault();
     botonDerechaPressed = false; 
-  });
-  botonderecha.addEventListener("touchcancel", (e) => { 
+});
+botonderecha.addEventListener("touchcancel", (e) => { 
     e.preventDefault();
     botonDerechaPressed = false; 
-  });
-  
+});
 
 function drawEnemies(contexto) {
     enemigos.forEach((enemy) => {
@@ -264,7 +283,6 @@ function comprobarMuerte() {
                 enemigo.image = explosion;
                 coinsReales += 1;
                 document.getElementById('coins').textContent = coinsReales;
-                //padreEnemigo.velocidadX += 4;
                 setTimeout(() => {
                     enemigos.splice(j, 1);
                     if (enemigos.length <= 0) {
