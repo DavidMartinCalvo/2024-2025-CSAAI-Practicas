@@ -64,7 +64,7 @@ const prota = {
 const padreEnemigo = {
     x: 5,
     y: 5,
-    velocidadX: 3,
+    velocidadX: 2.5,
 };
 
 // Array que almacenará los disparos
