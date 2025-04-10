@@ -1,9 +1,9 @@
-// finalBoss.js
+
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// Asignar dimensiones al canvas (puede personalizarse o definirse en CSS)
+
 canvas.width = 800;
 canvas.height = 600;
 
@@ -17,7 +17,7 @@ const feliz = new Image();
 feliz.src = "feliz.jpg";
 
 let MEGALOVANIA = new Audio('boss.mp3');
-MEGALOVANIA.volume = 0.3; // Ajusta el valor entre 0.0 y 1.0 según lo bajo que desees el volumen
+MEGALOVANIA.volume = 0.3; 
 const maga = new Audio('maga.mp3');
 
 const perdersong = new Audio('perder.mp3');
@@ -25,11 +25,9 @@ let vozperder2 = new Audio('vozperder2.mp3');
 let vozganar2 = new Audio('vozganar2.mp3');
 let intro2 = new Audio('intro2.mp3');
 
-let primeravez = true; // Variable para controlar la primera vez que se reproduce la canción
+let primeravez = true; 
 
-// ---
-// Agregamos este listener para dispositivos móviles, ya que muchos requieren 
-// una interacción directa en el documento para iniciar el audio.
+
 document.addEventListener('touchstart', () => {
   if (primeravez) {
     playSongInLoop(MEGALOVANIA);
@@ -41,7 +39,7 @@ document.addEventListener('touchstart', () => {
 
 const bossImg = new Image();
 bossImg.src = "boss.png";
-// Se ajusta la altura del boss para mantener la relación de aspecto
+
 bossImg.onload = function() {
     let aspect = bossImg.naturalWidth / bossImg.naturalHeight;
     boss.height = boss.width / aspect;
@@ -63,9 +61,7 @@ const hitSounds = [
     new Audio("explosion.mp3"),
     new Audio("explosion.mp3")
 ];
-//const victorySound = new Audio("victoria.mp3");
 
-// Jugador: se define con dimensiones 50x65 y se inicializa la vida
 const player = {
     x: canvas.width / 2 - 15,
     y: canvas.height - 70,
@@ -274,8 +270,7 @@ function drawVictory() {
     }, 10000);
 }
 
-// Función que se llama cuando el jugador pierde (vida 0)
-// Ahora solo se marca gameOver; el ciclo de update seguirá dibujando el estado y se mostrará el mensaje.
+
 function perder() {
     gameOver = true;
     vozperder2.play(); 
@@ -285,10 +280,10 @@ function perder() {
     
 }
 
-// Función que hace que el boss dispare. Se reprogrma a sí misma con un retardo aleatorio entre 0 y 2 segundos.
+
 function bossShoot() {
     if (!boss.alive || gameOver) return;
-    // Se crea un disparo del boss desde la parte inferior central
+    
     bossBullets.push({
         x: boss.x + boss.width / 2 - 3,
         y: boss.y + boss.height,
@@ -342,11 +337,11 @@ function moveBoss() {
 
 // Función que reproduce de forma aleatoria un audio entre 4 y 10 segundos
 function playRandomAudio() {
-    const delay = 4000 + Math.random() * 6000; // Delay entre 4000ms y 10000ms
+    const delay = 4000 + Math.random() * 6000; 
     setTimeout(() => {
         maga.currentTime = 0;
         maga.play();
-        // Se vuelve a llamar la función para reproducir el siguiente audio
+        
         playRandomAudio();
     }, delay);
 }
@@ -409,7 +404,7 @@ document.addEventListener("keyup", (e) => {
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") player.dx = 0;
 });
 
-// ----- Agregamos soporte para eventos táctiles -----
+
 // Movimiento hacia la izquierda
 const btnIzquierda = document.getElementById("botonizquierda");
 btnIzquierda.addEventListener("touchstart", (e) => {
@@ -426,7 +421,7 @@ const btnDerecha = document.getElementById("botonderecha");
 btnDerecha.addEventListener("touchstart", (e) => {
     e.preventDefault();
     player.dx = player.speed;
-    // En este caso, ya se activó la canción en el listener global de touchstart
+    
 });
 btnDerecha.addEventListener("touchend", (e) => {
     e.preventDefault();
