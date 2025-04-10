@@ -118,7 +118,7 @@ function ganar() {
 
     setTimeout(() => {
         window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/finalBoss.html", "_self");
-    }, 10000);
+    }, 5000);
     
 }
 
@@ -157,7 +157,7 @@ function cajasTexto() {
     }
 
     if (jugar && final)  {
-        intervaloCajasTexto = setInterval(cambiarCombinacion, 6000);
+        intervaloCajasTexto = setInterval(cambiarCombinacion, 8000);
     }  
 }
 

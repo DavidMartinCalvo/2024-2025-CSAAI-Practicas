@@ -13,6 +13,9 @@ const cajaTexto = document.getElementById('cajaTexto');
 const iluminati = new Image();
 iluminati.src = "iluminati.png";
 
+const feliz = new Image();
+feliz.src = "feliz.jpg";
+
 let MEGALOVANIA = new Audio('boss.mp3');
 MEGALOVANIA.volume = 0.3; // Ajusta el valor entre 0.0 y 1.0 según lo bajo que desees el volumen
 const maga = new Audio('maga.mp3');
@@ -263,8 +266,12 @@ function drawVictory() {
     ctx.font = "40px Arial";
     ctx.fillText("¡Victoria!", canvas.width / 2 - 80, canvas.height / 2);
     // Mensaje de victoria
+    document.getElementById('fotoTexto').src = feliz.src;
     document.getElementById('cajaTexto').textContent = "Derrotaste a Super Saiyan Trump 3000 y salvaste a tu país, no hay nada más patriótico que eso. Felicidades soldado.";
     vozganar2.play(); // Reproducir el audio de la voz al perder
+    setTimeout(() => {
+        window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/", "_self");
+    }, 10000);
 }
 
 // Función que se llama cuando el jugador pierde (vida 0)
