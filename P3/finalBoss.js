@@ -16,6 +16,9 @@ iluminati.src = "iluminati.png";
 const feliz = new Image();
 feliz.src = "feliz.jpg";
 
+const casablanca = new Image();
+casablanca.src = "casablanca.png";
+
 let MEGALOVANIA = new Audio('boss.mp3');
 MEGALOVANIA.volume = 0.3; 
 const maga = new Audio('maga.mp3');
@@ -359,7 +362,9 @@ function update() {
         moveBoss();
         moveBossBullets();
         checkBossBulletCollisions();
+
     }
+    
     draw();
     requestAnimationFrame(update);
 }
@@ -373,6 +378,7 @@ function draw() {
         ctx.fillText("¡Has Perdido!", canvas.width / 2 - 100, canvas.height / 2);
         return; // Se finaliza el dibujo para no sobreponer otros elementos.
     }
+    ctx.drawImage(casablanca, 0, 0, canvas.width, canvas.height);
     drawPlayer();
     drawBoss();
     drawExplosions();
