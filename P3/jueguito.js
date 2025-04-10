@@ -19,6 +19,9 @@ const cajaTexto = document.getElementById('cajaTexto');
 const casablanca = new Image();
 casablanca.src = "casablanca.png";
 
+const llorar = new Image();
+llorar.src = "llorar.png";
+
 const obama = new Image();
 obama.src = "obama.jpg";
 
@@ -90,18 +93,18 @@ let intervaloCajasTexto; // Variable para almacenar el intervalo
 
 function ganar() {
     stopSong(MEGALOVANIA);
-    alert("¡Has salvado a tu país!, ¡Enhorabuena soldado!");
+    
     final = false;
     
     document.getElementById('fotoTexto').src = obama.src;
-    document.getElementById('cajaTexto').textContent = "¡Has salvado a tu país!, ¡Enhorabuena soldado!";
+    document.getElementById('cajaTexto').textContent = "Oh no, ¡parece que algo se acerca!";
     jugar = false;
     bug = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
     contexto.drawImage(casablanca, 0, 0, mapa.width, mapa.height);
     playSongInLoop(victoria);
     clearInterval(intervaloCajasTexto); // Se detiene el interval de cambio de cajas de texto
-    window.open("https://youtu.be/-S_8TjQcpMo", "_blank");
+    window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/'", "_self");
 }
 
 function perder() {
@@ -110,7 +113,7 @@ function perder() {
     alert("Ahora la gente conocerá la verdad, eres una decepción para tu país, no mereces ser americano. Para volver a intentarlo vuelve al menú principal");
     final = false;
     // Se actualiza la imagen asignando la propiedad src
-    document.getElementById('fotoTexto').src = obama.src;
+    document.getElementById('fotoTexto').src = llorar.src;
     document.getElementById('cajaTexto').textContent = "No has podido salvar a tu país. Ahora la gente conocerá la verdad, eres una decepción para tu país, no mereces ser americano. Para volver a intentarlo vuelve al menú principal";
     jugar = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
