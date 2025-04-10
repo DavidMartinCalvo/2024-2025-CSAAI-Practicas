@@ -8,7 +8,10 @@ canvas.height = 600;
 const iluminati = new Image();
 iluminati.src = "iluminati.png";
 
+let MEGALOVANIA = new Audio('boss.mp3');
 const maga = new Audio('maga.mp3');
+
+let primeravez = true; // Variable para controlar la primera vez que se reproduce la canción
 
 const bossImg = new Image();
 bossImg.src = "boss.png";
@@ -20,8 +23,6 @@ bossImg.onload = function() {
 
 const shootSounds = [
     new Audio("disparo.mp3"),
-    new Audio("disparo.mp3"),
-    new Audio("disparo.mp3")
 ];
 
 const explosions = [];
@@ -105,6 +106,12 @@ function drawBoss() {
         boss.damageTimer--;
     }
 }
+
+function playSongInLoop(audio) {
+    audio.loop = true;
+    audio.play();
+}
+
 
 // Dibuja los disparos del jugador
 function drawBullets() {
@@ -344,7 +351,13 @@ playRandomAudio();
 // Eventos de teclado para mover al jugador y disparar
 document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") player.dx = -player.speed;
-    if (e.key === "ArrowRight") player.dx = player.speed;
+    if (e.key === "ArrowRight") {
+        player.dx = player.speed;
+        if (primeravez) {
+            playSongInLoop(MEGALOVANIA);
+            primeravez = false;
+        }
+    }
     if (e.key === " ") shoot();
 });
 document.addEventListener("keyup", (e) => {

@@ -104,7 +104,7 @@ function ganar() {
     contexto.drawImage(casablanca, 0, 0, mapa.width, mapa.height);
     playSongInLoop(victoria);
     clearInterval(intervaloCajasTexto); // Se detiene el interval de cambio de cajas de texto
-    window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/'", "_self");
+    window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/finalBoss.html", "_self");
 }
 
 function perder() {
@@ -202,7 +202,7 @@ document.addEventListener("keydown", (event) => {
         puedeDisparar = false;
         setTimeout(() => {
             puedeDisparar = true;
-        }, 1000);
+        }, 500);
     }
     keys[event.code] = true;
 });
