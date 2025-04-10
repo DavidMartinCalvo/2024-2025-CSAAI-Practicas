@@ -7,11 +7,20 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 600;
 
+const fotoTexto = document.getElementById('fotoTexto');
+const cajaTexto = document.getElementById('cajaTexto');
+
 const iluminati = new Image();
 iluminati.src = "iluminati.png";
 
 let MEGALOVANIA = new Audio('boss.mp3');
+MEGALOVANIA.volume = 0.3; // Ajusta el valor entre 0.0 y 1.0 según lo bajo que desees el volumen
 const maga = new Audio('maga.mp3');
+
+const perdersong = new Audio('perder.mp3');
+let vozperder2 = new Audio('vozperder2.mp3');
+let vozganar2 = new Audio('vozganar2.mp3');
+let intro2 = new Audio('intro2.mp3');
 
 let primeravez = true; // Variable para controlar la primera vez que se reproduce la canción
 
@@ -21,6 +30,7 @@ let primeravez = true; // Variable para controlar la primera vez que se reproduc
 document.addEventListener('touchstart', () => {
   if (primeravez) {
     playSongInLoop(MEGALOVANIA);
+    intro2.play();
     primeravez = false;
   }
 }, { once: true });
@@ -50,7 +60,7 @@ const hitSounds = [
     new Audio("explosion.mp3"),
     new Audio("explosion.mp3")
 ];
-const victorySound = new Audio("victoria.mp3");
+//const victorySound = new Audio("victoria.mp3");
 
 // Jugador: se define con dimensiones 50x65 y se inicializa la vida
 const player = {
@@ -75,7 +85,7 @@ const boss = {
     y: 20,
     width: 140,
     height: 140,  // Valor provisional, se actualizará en bossImg.onload
-    health: 500,
+    health: 350,
     alive: true,
     damageTimer: 0,
     dx: 2,
@@ -193,7 +203,7 @@ function checkCollisions() {
                 boss.alive = false;
                 victory = true;
                 crearTracaFinal();
-                victorySound.play();
+                drawVictory();
             }
         }
     });
@@ -252,12 +262,20 @@ function drawVictory() {
     ctx.fillStyle = "green";
     ctx.font = "40px Arial";
     ctx.fillText("¡Victoria!", canvas.width / 2 - 80, canvas.height / 2);
+    // Mensaje de victoria
+    document.getElementById('cajaTexto').textContent = "Derrotaste a Super Saiyan Trump 3000 y salvaste a tu país, no hay nada más patriótico que eso. Felicidades soldado.";
+    vozganar2.play(); // Reproducir el audio de la voz al perder
 }
 
 // Función que se llama cuando el jugador pierde (vida 0)
 // Ahora solo se marca gameOver; el ciclo de update seguirá dibujando el estado y se mostrará el mensaje.
 function perder() {
     gameOver = true;
+    vozperder2.play(); 
+    playSongInLoop(perdersong);
+    document.getElementById('fotoTexto').src = bossImg.src;
+    document.getElementById('cajaTexto').textContent = "Te derroté, y ahora NADIE podrá detenerme. ¡Haré AMÉRICA GRANDE OTRA VEZ!";
+    
 }
 
 // Función que hace que el boss dispare. Se reprogrma a sí misma con un retardo aleatorio entre 0 y 2 segundos.
@@ -292,7 +310,9 @@ function crearTracaFinal() {
             });
         }, delay);
     }
+    
 }
+
 
 // Mueve al boss dentro del canvas
 function moveBoss() {
@@ -370,10 +390,11 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") player.dx = -player.speed;
     if (e.key === "ArrowRight") {
         player.dx = player.speed;
-        if (primeravez) {  // En el teclado se reproduce la canción en el primer movimiento a la derecha
+        if (primeravez) {
             playSongInLoop(MEGALOVANIA);
+            intro2.play();
             primeravez = false;
-        }
+          }
     }
     if (e.key === " ") shoot();
 });

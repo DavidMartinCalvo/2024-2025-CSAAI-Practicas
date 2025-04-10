@@ -28,6 +28,12 @@ obama.src = "obama.jpg";
 const perderi = new Image();
 perderi.src = "perder.png";
 
+let vozganar1 = new Audio('vozganar1.mp3');
+let vozperder = new Audio('vozperder.mp3');
+let tension = new Audio('tension.mp3');
+tension.volume = 0.3;
+let intro = new Audio('intro.mp3');
+
 const botonizquierda = document.getElementById("botonizquierda");
 const botonderecha = document.getElementById("botonderecha");
 const botondisparar = document.getElementById("botondisparar");
@@ -40,6 +46,7 @@ iluminati.onload = () => {
 };
 
 let MEGALOVANIA = new Audio('himno.m4a');
+MEGALOVANIA.volume = 0.3;
 let disparoAudio = new Audio('disparo (2).mp3');
 let perdersong = new Audio('perdersong.mp3');
 let victoria = new Audio('victoria.mp3');
@@ -102,15 +109,22 @@ function ganar() {
     bug = false;
     contexto.clearRect(0, 0, mapa.width, mapa.height);
     contexto.drawImage(casablanca, 0, 0, mapa.width, mapa.height);
-    playSongInLoop(victoria);
+    
     clearInterval(intervaloCajasTexto); // Se detiene el interval de cambio de cajas de texto
-    window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/finalBoss.html", "_self");
+    puedeDisparar = false;
+
+    vozganar1.play();
+    playSongInLoop(tension);
+
+    setTimeout(() => {
+        window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/finalBoss.html", "_self");
+    }, 10000);
+    
 }
 
 function perder() {
     stopSong(MEGALOVANIA);
     playSongInLoop(perdersong);
-    alert("Ahora la gente conocerá la verdad, eres una decepción para tu país, no mereces ser americano. Para volver a intentarlo vuelve al menú principal");
     final = false;
     // Se actualiza la imagen asignando la propiedad src
     document.getElementById('fotoTexto').src = llorar.src;
@@ -119,6 +133,8 @@ function perder() {
     contexto.clearRect(0, 0, mapa.width, mapa.height);
     contexto.drawImage(perderi, 0, 0, mapa.width, mapa.height);
     clearInterval(intervaloCajasTexto); // Se detiene el interval de cambio de cajas de texto
+
+    vozperder.play();
 }
 
 function cajasTexto() {
@@ -149,30 +165,30 @@ cajasTexto();
 
 // Enemigos y sus parámetros
 let enemigos = [
-    { offsetX: 0, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 40, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 80, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 120, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 160, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 200, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 240, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 280, offsetY: 0, width: 30, height: 30 },
-    { offsetX: 0, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 40, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 80, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 120, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 160, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 200, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 240, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 280, offsetY: 40, width: 30, height: 30 },
-    { offsetX: 0, offsetY: 80, width: 30, height: 30 },
-    { offsetX: 40, offsetY: 80, width: 30, height: 30 },
-    { offsetX: 80, offsetY: 80, width: 30, height: 30 },
-    { offsetX: 120, offsetY: 80, width: 30, height: 30 },
-    { offsetX: 160, offsetY: 80, width: 30, height: 30 },
-    { offsetX: 200, offsetY: 80, width: 30, height: 30 },
-    { offsetX: 240, offsetY: 80, width: 30, height: 30 },
-    { offsetX: 280, offsetY: 80, width: 30, height: 30 },
+    { offsetX: 0, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 40, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 80, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 120, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 160, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 200, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 240, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 280, offsetY: 0, width: 40, height: 40 },
+    { offsetX: 0, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 40, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 80, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 120, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 160, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 200, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 240, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 280, offsetY: 40, width: 40, height: 40 },
+    { offsetX: 0, offsetY: 80, width: 40, height: 40 },
+    { offsetX: 40, offsetY: 80, width: 40, height: 40 },
+    { offsetX: 80, offsetY: 80, width: 40, height: 40 },
+    { offsetX: 120, offsetY: 80, width: 40, height: 40 },
+    { offsetX: 160, offsetY: 80, width: 40, height: 40 },
+    { offsetX: 200, offsetY: 80, width: 40, height: 40 },
+    { offsetX: 240, offsetY: 80, width: 40, height: 40 },
+    { offsetX: 280, offsetY: 80, width: 40, height: 40 },
 ];
 
 const image_sources = ["mcdonalds.png", "rayquaza.png", "sans.png", "yoda.png", "españa.png"];
@@ -202,7 +218,7 @@ document.addEventListener("keydown", (event) => {
         puedeDisparar = false;
         setTimeout(() => {
             puedeDisparar = true;
-        }, 500);
+        }, 1000);
     }
     keys[event.code] = true;
 });
@@ -323,6 +339,7 @@ function update() {
         prota.x += prota.velocidad;
         if (primeravez) {
             playSongInLoop(MEGALOVANIA);
+            intro.play();
             primeravez = false;
         }
     }
