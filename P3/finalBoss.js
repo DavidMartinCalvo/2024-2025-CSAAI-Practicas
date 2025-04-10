@@ -1,3 +1,5 @@
+// finalBoss.js
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -39,7 +41,7 @@ const hitSounds = [
 ];
 const victorySound = new Audio("victoria.mp3");
 
-// Jugador: se define con dimensiones 30x30 (relación 1:1) y se inicializa la vida
+// Jugador: se define con dimensiones 50x65 y se inicializa la vida
 const player = {
     x: canvas.width / 2 - 15,
     y: canvas.height - 70,
@@ -111,7 +113,6 @@ function playSongInLoop(audio) {
     audio.loop = true;
     audio.play();
 }
-
 
 // Dibuja los disparos del jugador
 function drawBullets() {
@@ -362,6 +363,40 @@ document.addEventListener("keydown", (e) => {
 });
 document.addEventListener("keyup", (e) => {
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") player.dx = 0;
+});
+
+// ----- Agregamos soporte para eventos táctiles -----
+// Movimiento hacia la izquierda
+const btnIzquierda = document.getElementById("botonizquierda");
+btnIzquierda.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // Para evitar conflictos con otros gestos
+    player.dx = -player.speed;
+});
+btnIzquierda.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    player.dx = 0;
+});
+
+// Movimiento hacia la derecha
+const btnDerecha = document.getElementById("botonderecha");
+btnDerecha.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    player.dx = player.speed;
+    if (primeravez) {
+      playSongInLoop(MEGALOVANIA);
+      primeravez = false;
+    }
+});
+btnDerecha.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    player.dx = 0;
+});
+
+// Botón de disparo
+const btnDisparar = document.getElementById("botondisparar");
+btnDisparar.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    shoot();
 });
 
 update();
