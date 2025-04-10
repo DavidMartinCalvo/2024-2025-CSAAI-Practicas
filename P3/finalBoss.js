@@ -15,6 +15,17 @@ const maga = new Audio('maga.mp3');
 
 let primeravez = true; // Variable para controlar la primera vez que se reproduce la canción
 
+// ---
+// Agregamos este listener para dispositivos móviles, ya que muchos requieren 
+// una interacción directa en el documento para iniciar el audio.
+document.addEventListener('touchstart', () => {
+  if (primeravez) {
+    playSongInLoop(MEGALOVANIA);
+    primeravez = false;
+  }
+}, { once: true });
+// ---
+
 const bossImg = new Image();
 bossImg.src = "boss.png";
 // Se ajusta la altura del boss para mantener la relación de aspecto
@@ -244,11 +255,9 @@ function drawVictory() {
 }
 
 // Función que se llama cuando el jugador pierde (vida 0)
+// Ahora solo se marca gameOver; el ciclo de update seguirá dibujando el estado y se mostrará el mensaje.
 function perder() {
     gameOver = true;
-    ctx.fillStyle = "red";
-    ctx.font = "40px Arial";
-    ctx.fillText("¡Has Perdido!", canvas.width / 2 - 100, canvas.height / 2);
 }
 
 // Función que hace que el boss dispare. Se reprogrma a sí misma con un retardo aleatorio entre 0 y 2 segundos.
@@ -316,25 +325,32 @@ function playRandomAudio() {
 }
 
 // Función principal de actualización (game loop)
+// Se actualizan los movimientos y colisiones solo si el juego sigue en curso,
+// pero siempre se dibuja el estado actual (incluyendo el mensaje de derrota o victoria).
 function update() {
-    if (!gameOver) {
-        if (!victory) {
-            player.x += player.dx;
-            if (player.x < 0) player.x = 0;
-            if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
-            moveBullets();
-            checkCollisions();
-        }
+    if (!gameOver && !victory) {
+        player.x += player.dx;
+        if (player.x < 0) player.x = 0;
+        if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+        moveBullets();
+        checkCollisions();
         moveBoss();
         moveBossBullets();
         checkBossBulletCollisions();
-        draw();
-        requestAnimationFrame(update);
     }
+    draw();
+    requestAnimationFrame(update);
 }
 
+// Modificamos la función draw para que, si el juego terminó, se muestre el mensaje adecuado.
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (gameOver) {
+        ctx.fillStyle = "red";
+        ctx.font = "40px Arial";
+        ctx.fillText("¡Has Perdido!", canvas.width / 2 - 100, canvas.height / 2);
+        return; // Se finaliza el dibujo para no sobreponer otros elementos.
+    }
     drawPlayer();
     drawBoss();
     drawExplosions();
@@ -354,7 +370,7 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") player.dx = -player.speed;
     if (e.key === "ArrowRight") {
         player.dx = player.speed;
-        if (primeravez) {
+        if (primeravez) {  // En el teclado se reproduce la canción en el primer movimiento a la derecha
             playSongInLoop(MEGALOVANIA);
             primeravez = false;
         }
@@ -382,10 +398,7 @@ const btnDerecha = document.getElementById("botonderecha");
 btnDerecha.addEventListener("touchstart", (e) => {
     e.preventDefault();
     player.dx = player.speed;
-    if (primeravez) {
-      playSongInLoop(MEGALOVANIA);
-      primeravez = false;
-    }
+    // En este caso, ya se activó la canción en el listener global de touchstart
 });
 btnDerecha.addEventListener("touchend", (e) => {
     e.preventDefault();
