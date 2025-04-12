@@ -1,8 +1,5 @@
-
-
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-
 
 canvas.width = 800;
 canvas.height = 600;
@@ -16,9 +13,6 @@ iluminati.src = "iluminati.png";
 const feliz = new Image();
 feliz.src = "feliz.jpg";
 
-const casablanca = new Image();
-casablanca.src = "casablanca.png";
-
 let MEGALOVANIA = new Audio('boss.mp3');
 MEGALOVANIA.volume = 0.3; 
 const maga = new Audio('maga.mp3');
@@ -28,17 +22,17 @@ let vozperder2 = new Audio('vozperder2.mp3');
 let vozganar2 = new Audio('vozganar2.mp3');
 let intro2 = new Audio('intro2.mp3');
 
-let primeravez = true; 
+let primeravez = true;
 
+// Función para iniciar la música la primera vez
+function startMusicIfNeeded() {
+    if (primeravez) {
+        playSongInLoop(MEGALOVANIA);
+        intro2.play();
+        primeravez = false;
+    }
+}
 
-document.addEventListener('touchstart', () => {
-  if (primeravez) {
-    playSongInLoop(MEGALOVANIA);
-    intro2.play();
-    primeravez = false;
-  }
-}, { once: true });
-// ---
 
 const bossImg = new Image();
 bossImg.src = "boss.png";
@@ -86,7 +80,7 @@ const boss = {
     x: canvas.width / 2 - 50,
     y: 20,
     width: 140,
-    height: 140,  // Valor provisional, se actualizará en bossImg.onload
+    height: 140,  
     health: 350,
     alive: true,
     damageTimer: 0,
@@ -236,7 +230,7 @@ function drawBossHealthBar() {
     const barHeight = 15;
     const x = canvas.width - barWidth - 20;
     const y = 20;
-    const healthRatio = boss.health / 500;
+    const healthRatio = boss.health / 350;
     ctx.fillStyle = "gray";
     ctx.fillRect(x, y, barWidth, barHeight);
     ctx.fillStyle = "red";
@@ -267,12 +261,11 @@ function drawVictory() {
     // Mensaje de victoria
     document.getElementById('fotoTexto').src = feliz.src;
     document.getElementById('cajaTexto').textContent = "Derrotaste a Super Saiyan Trump 3000 y salvaste a tu país, no hay nada más patriótico que eso. Felicidades soldado.";
-    vozganar2.play(); // Reproducir el audio de la voz al perder
+    vozganar2.play();
     setTimeout(() => {
         window.open("https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/", "_self");
     }, 10000);
 }
-
 
 function perder() {
     gameOver = true;
@@ -280,9 +273,7 @@ function perder() {
     playSongInLoop(perdersong);
     document.getElementById('fotoTexto').src = bossImg.src;
     document.getElementById('cajaTexto').textContent = "Te derroté, y ahora NADIE podrá detenerme. ¡Haré AMÉRICA GRANDE OTRA VEZ!";
-    
 }
-
 
 function bossShoot() {
     if (!boss.alive || gameOver) return;
@@ -315,11 +306,8 @@ function crearTracaFinal() {
             });
         }, delay);
     }
-    
 }
 
-
-// Mueve al boss dentro del canvas
 function moveBoss() {
     if (!boss.alive) return;
     boss.x += boss.dx;
@@ -344,14 +332,11 @@ function playRandomAudio() {
     setTimeout(() => {
         maga.currentTime = 0;
         maga.play();
-        
         playRandomAudio();
     }, delay);
 }
 
 // Función principal de actualización (game loop)
-// Se actualizan los movimientos y colisiones solo si el juego sigue en curso,
-// pero siempre se dibuja el estado actual (incluyendo el mensaje de derrota o victoria).
 function update() {
     if (!gameOver && !victory) {
         player.x += player.dx;
@@ -362,23 +347,22 @@ function update() {
         moveBoss();
         moveBossBullets();
         checkBossBulletCollisions();
-
     }
     
     draw();
     requestAnimationFrame(update);
 }
 
-// Modificamos la función draw para que, si el juego terminó, se muestre el mensaje adecuado.
+// Función de dibujo principal
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (gameOver) {
         ctx.fillStyle = "red";
         ctx.font = "40px Arial";
         ctx.fillText("¡Has Perdido!", canvas.width / 2 - 100, canvas.height / 2);
-        return; // Se finaliza el dibujo para no sobreponer otros elementos.
+        return;
     }
-    ctx.drawImage(casablanca, 0, 0, canvas.width, canvas.height);
+    
     drawPlayer();
     drawBoss();
     drawExplosions();
@@ -398,11 +382,8 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") player.dx = -player.speed;
     if (e.key === "ArrowRight") {
         player.dx = player.speed;
-        if (primeravez) {
-            playSongInLoop(MEGALOVANIA);
-            intro2.play();
-            primeravez = false;
-          }
+        // Asegura iniciar la música si es la primera interacción
+        startMusicIfNeeded();
     }
     if (e.key === " ") shoot();
 });
@@ -410,11 +391,11 @@ document.addEventListener("keyup", (e) => {
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") player.dx = 0;
 });
 
-
-// Movimiento hacia la izquierda
+// Movimiento hacia la izquierda (botón táctil)
 const btnIzquierda = document.getElementById("botonizquierda");
 btnIzquierda.addEventListener("touchstart", (e) => {
-    e.preventDefault(); // Para evitar conflictos con otros gestos
+    e.preventDefault();
+    startMusicIfNeeded();
     player.dx = -player.speed;
 });
 btnIzquierda.addEventListener("touchend", (e) => {
@@ -422,22 +403,23 @@ btnIzquierda.addEventListener("touchend", (e) => {
     player.dx = 0;
 });
 
-// Movimiento hacia la derecha
+// Movimiento hacia la derecha (botón táctil)
 const btnDerecha = document.getElementById("botonderecha");
 btnDerecha.addEventListener("touchstart", (e) => {
     e.preventDefault();
+    startMusicIfNeeded();
     player.dx = player.speed;
-    
 });
 btnDerecha.addEventListener("touchend", (e) => {
     e.preventDefault();
     player.dx = 0;
 });
 
-// Botón de disparo
+// Botón de disparo (táctil)
 const btnDisparar = document.getElementById("botondisparar");
 btnDisparar.addEventListener("touchstart", (e) => {
     e.preventDefault();
+    startMusicIfNeeded();
     shoot();
 });
 
