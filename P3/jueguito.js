@@ -33,6 +33,7 @@ let vozperder = new Audio('vozperder.mp3');
 let tension = new Audio('tension.mp3');
 tension.volume = 0.3;
 let intro = new Audio('intro.mp3');
+let cash = new Audio('cash.mp3');
 
 const botonizquierda = document.getElementById("botonizquierda");
 const botonderecha = document.getElementById("botonderecha");
@@ -300,7 +301,8 @@ function comprobarMuerte() {
             ) {
                 disparos.splice(i, 1);
                 enemigo.image = explosion;
-                coinsReales += 1;
+                cash.play();
+                coinsReales += 10;
                 document.getElementById('coins').textContent = coinsReales;
                 setTimeout(() => {
                     enemigos.splice(j, 1);
