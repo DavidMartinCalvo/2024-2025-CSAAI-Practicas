@@ -1,0 +1,21 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  /* Fondo de página con imagen */
+  background: url('images/page_bg.gif') no-repeat center center fixed;
+  background-size: cover;
+}
+.controls { margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+button, select { padding: 5px 10px; font-size: 1rem; }
+.stats { font-size: 1rem; }
+#gameCanvas {
+  border: 2px solid #333;
+  touch-action: manipulation;
+  max-width: 100%;
+  height: auto;
+  /* Sombra para destacar sobre fondo */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}

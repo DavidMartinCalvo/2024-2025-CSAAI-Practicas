@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game con Canvas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="controls">
+    <label for="dimension">Dimensión:</label>
+    <select id="dimension">
+      <option value="2">2 × 2</option>
+      <option value="4" selected>4 × 4</option>
+      <option value="6">6 × 6</option>
+    </select>
+    <button id="startBtn">Comenzar</button>
+    <button id="resetBtn" disabled>Reiniciar</button>
+    <div class="stats">
+      Movimientos: <span id="moves">0</span>
+      &nbsp;|&nbsp;
+      Tiempo: <span id="timer">00:00</span>
+    </div>
+  </div>
+
+  <canvas id="gameCanvas" width="600" height="600"></canvas>
+
+  <!-- Controles de audio (sonidos en carpeta 'sounds/') -->
+  <audio id="bgMusic" src="sounds/background.mp3" loop></audio>
+  <audio id="flipSound" src="sounds/flip.mp3"></audio>
+  <audio id="matchSound" src="sounds/match.mp3"></audio>
+
+  <script src="memory.js"></script>
+</body>
+</html>
