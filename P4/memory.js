@@ -14,6 +14,7 @@ const matchSound = document.getElementById('matchSound');
 
 // Ajuste volumen de música de fondo
 bgMusic.volume = 0.2;
+matchSound.volume = Math.min(1.0, matchSound.volume + 1.1); // Ensure it doesn't exceed the maximum volume
 
 // Fuentes de imágenes
 const MAX_IMAGES = 18;
@@ -76,6 +77,9 @@ canvas.addEventListener('click', onCanvasClick);
 
 // Inicia una nueva partida
 function startGame() {
+  // Mostrar el canvas
+  canvas.style.display = 'block';
+
   dimension = parseInt(dimSelect.value);
   totalCards = dimension * dimension;
   cellSize = canvas.width / dimension;
@@ -113,6 +117,9 @@ function startGame() {
 
 // Reiniciar partida
 function resetGame() {
+  // Ocultar el canvas
+  canvas.style.display = 'none';
+
   clearInterval(timerInterval);
   gameStarted = false;
   dimSelect.disabled = false;
@@ -190,15 +197,12 @@ function animateFlip(idx, showFace, duration, callback) {
 
 // Dibuja tablero con fondo de tablero
 function drawBoard(opts = {}) {
-  // fondo de tablero
-  ctx.drawImage(boardBgImage, 0, 0, canvas.width, canvas.height);
   for (let i = 0; i < totalCards; i++) {
     if (opts.animate === i) drawFlippingCard(i, opts.scale);
     else drawCard(i);
   }
 }
 
-// Dibuja carta normal
 function drawCard(idx) {
   const { x, y, w, h } = getCardRect(idx);
   if (flipped.includes(idx) || matchedIndices.includes(idx)) {
@@ -208,7 +212,6 @@ function drawCard(idx) {
   }
 }
 
-// Dibuja carta durante flip
 function drawFlippingCard(idx, scale) {
   const { x, y, w, h } = getCardRect(idx);
   const w2 = w * Math.abs(scale);
@@ -221,7 +224,6 @@ function drawFlippingCard(idx, scale) {
   ctx.restore();
 }
 
-// Calcula rectángulo de carta dentro de cada celda
 function getCardRect(idx) {
   const col = idx % dimension;
   const row = Math.floor(idx / dimension);
@@ -233,7 +235,6 @@ function getCardRect(idx) {
   return { x, y, w, h };
 }
 
-// Dibuja rectángulo redondeado con color o imagen
 function drawRoundedRect(x, y, w, h, r, fillColor = null, image = null) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -257,7 +258,6 @@ function drawRoundedRect(x, y, w, h, r, fillColor = null, image = null) {
   }
 }
 
-// Helpers
 function getClickIndex(e) {
   const rect = canvas.getBoundingClientRect();
   const col = Math.floor((e.clientX - rect.left) / cellSize);
