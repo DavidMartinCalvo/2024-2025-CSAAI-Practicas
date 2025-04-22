@@ -13,8 +13,8 @@ const flipSound = document.getElementById('flipSound');
 const matchSound = document.getElementById('matchSound');
 
 // Ajuste volumen de música de fondo
-bgMusic.volume = 0.2;
-matchSound.volume = Math.min(1.0, matchSound.volume + 1.1); // Ensure it doesn't exceed the maximum volume
+bgMusic.volume = 0.5;
+matchSound.volume = Math.min(1.0, matchSound.volume + 1.1);
 
 // Fuentes de imágenes
 const MAX_IMAGES = 18;
@@ -28,23 +28,17 @@ let boardBgImage;
 // Precarga de imágenes
 function preloadImages(callback) {
   let count = 0;
-  const total = faceSources.length + 3; // back + boardBg + caras
+  const total = faceSources.length + 3;
 
-  // reverso
   backImage = new Image(); backImage.src = backSource;
   backImage.onload = backImage.onerror = checkAll;
 
-  // fondo tablero
   boardBgImage = new Image(); boardBgImage.src = boardBgSource;
   boardBgImage.onload = boardBgImage.onerror = checkAll;
 
-  // caras
   faceSources.forEach(src => {
     const img = new Image(); img.src = src;
-    img.onload = img.onerror = () => {
-      faceImages.push(img);
-      checkAll();
-    };
+    img.onload = img.onerror = () => { faceImages.push(img); checkAll(); };
   });
 
   function checkAll() {
@@ -77,18 +71,15 @@ canvas.addEventListener('click', onCanvasClick);
 
 // Inicia una nueva partida
 function startGame() {
-  // Mostrar el canvas
   canvas.style.display = 'block';
 
   dimension = parseInt(dimSelect.value);
   totalCards = dimension * dimension;
   cellSize = canvas.width / dimension;
 
-  // reproducir música de fondo
   bgMusic.currentTime = 0;
   bgMusic.play();
 
-  // Seleccionar pares
   const pairCount = totalCards / 2;
   const imgs = shuffle(faceImages).slice(0, pairCount);
   boardImages = shuffle([...imgs, ...imgs]);
@@ -117,7 +108,6 @@ function startGame() {
 
 // Reiniciar partida
 function resetGame() {
-  // Ocultar el canvas
   canvas.style.display = 'none';
 
   clearInterval(timerInterval);
@@ -129,14 +119,25 @@ function resetGame() {
   timerSpan.textContent = '00:00';
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // detener música
   bgMusic.pause();
 }
 
-// Maneja clics en canvas
+// Maneja clics en canvas con detección precisa
 function onCanvasClick(e) {
   if (!gameStarted || animating) return;
-  const idx = getClickIndex(e);
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x0 = (e.clientX - rect.left) * scaleX;
+  const y0 = (e.clientY - rect.top) * scaleY;
+
+  const col = Math.floor(x0 / cellSize);
+  const row = Math.floor(y0 / cellSize);
+  if (col < 0 || col >= dimension || row < 0 || row >= dimension) return;
+  const idx = row * dimension + col;
+
+  const { x, y, w, h } = getCardRect(idx);
+  if (x0 < x || x0 > x + w || y0 < y || y0 > y + h) return;
   if (flipped.includes(idx) || matchedIndices.includes(idx)) return;
 
   animating = true;
@@ -195,14 +196,14 @@ function animateFlip(idx, showFace, duration, callback) {
   requestAnimationFrame(step);
 }
 
-// Dibuja tablero con fondo de tablero
+// Dibuja tablero
 function drawBoard(opts = {}) {
   for (let i = 0; i < totalCards; i++) {
     if (opts.animate === i) drawFlippingCard(i, opts.scale);
     else drawCard(i);
   }
 }
-
+// ... resto del código sin cambios ...
 function drawCard(idx) {
   const { x, y, w, h } = getCardRect(idx);
   if (flipped.includes(idx) || matchedIndices.includes(idx)) {
