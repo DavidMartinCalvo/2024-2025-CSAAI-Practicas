@@ -32,7 +32,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  /* Fondo de página con imagen */
+
   background: url('images/page_bg.gif') no-repeat center center fixed;
   background-size: cover;
 
@@ -68,7 +68,7 @@ button, select {
 .stats { font-size: 1rem; }
 
 #gameCanvas {
-  display: none;          /* Oculto hasta iniciar o reiniciar */
+  display: none;       
   touch-action: manipulation;
   max-width: 100%;
   height: auto;
