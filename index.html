@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prácticas de Construcción: GOTY</title>
+  <style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: url('P0/wallpaper.gif') no-repeat center center fixed;
+        background-size: cover;
+        
+    }
+    .container {      
+        touch-action: manipulation;
+        max-width: 100%;
+        height: auto;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-align: center;
+        border: 5px solid;
+        border-image: linear-gradient(to bottom, red, yellow, cyan, blue, magenta, red) 1;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .button-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+    .button-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .button-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+    .button-item a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: red;
+      color: yellow;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .button-item a:hover {
+      background-color: #0056b3;
+    }
+    .titulo {
+        font-family: 'Pixels', sans-serif;
+        margin: 0;
+        text-shadow: 0 0 5px red, 0 0 15px red, 0 0 30px red;
+        text-align: center;
+        color: white;
+        -webkit-text-stroke: 1px black;
+        padding-bottom: 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="titulo">Prácticas de Construcción: "Game of the Year Collection"</h1>
+    <div class="button-group">
+      <div class="button-item">
+        <img src="P1\profile.png" alt="Juego 1">
+        <a href="https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P1/" target="_blank">Antonio Fuentes Arquitecto</a>
+      </div>
+      <div class="button-item">
+        <img src="P2\perder.gif" alt="Juego 2">
+        <a href="https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P2/" target="_blank">Casita Explosiva</a>
+      </div>
+      <div class="button-item">
+        <img src="P3\celebracion.jpg" alt="Juego 3">
+        <a href="https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P3/" target="_blank">Obama VS Conspiracionistas</a>
+      </div>
+      <div class="button-item">
+        <img src="43753056641.png" alt="Juego 4">
+        <a href="https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P4/" target="_blank">¿¿Antonio Lobato??</a>
+      </div>
+      <div class="button-item">
+        <img src="P5\profile.png" alt="Juego 5">
+        <a href="https://davidmartincalvo.github.io/2024-2025-CSAAI-Practicas/P5/" target="_blank">To be released...</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
