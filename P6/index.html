@@ -1,0 +1,29 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Simulación de Red con Imágenes</title>
+  <link rel="stylesheet" href="network.css">
+  <script src="net-dijkstra.js" defer></script>
+  <script src="network.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1 class="titulo">Nintendo se defiende de los piratas</h1>
+  </header>
+
+  <section class="controls">
+    <button id="btnGenerate" class="boton">Buscar 3DS pirateadas</button>
+    <button id="btnRoute" disabled class="boton">Calcular Ruta para Destruirlas</button>
+    <div class="display">
+      <p class="message">Consolas Encontradas: <span id="nodeCount">–</span></p>
+      <p class="message">Tiempo total (ms): <span id="totalDelay">–</span></p>
+      <p id="message">Pulsa «Buscar 3DS pirateadas» para comenzar.</p>
+    </div>
+  </section>
+
+  <canvas id="networkCanvas" width="800" height="400"></canvas>
+</body>
+</html>
