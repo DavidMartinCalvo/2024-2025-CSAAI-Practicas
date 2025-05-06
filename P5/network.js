@@ -18,7 +18,7 @@ imgDefault.src = '3ds.png';
 const imgUsed = new Image();
 imgUsed.src = 'explosion.png';        
 
-// --- Clase Nodo ---
+
 class Nodo {
   constructor(id, x, y, delay) {
     this.id = id;
@@ -61,7 +61,7 @@ function crearRed() {
   });
 }
 
-// --- Dibujo de la red usando imágenes ---
+
 function dibujarRed(highlight = []) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
  
@@ -101,12 +101,12 @@ function dibujarRed(highlight = []) {
   });
 }
 
-// --- Utilitarios ---
+
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-// --- Dijkstra ---
+
 function dijkstra(startId, endId) {
   const dist = nodes.map(_ => Infinity);
   const prev = nodes.map(_ => null);
